@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#102a43">
+<meta name="description" content="أدوات مساحية لحساب المساحات وتقسيم الأراضي وتحويل الإحداثيات">
+<title>مِهني | أدوات مساحية</title>
+<link rel="manifest" href="./manifest.json">
+<style>
+:root{--bg:#f3f6fa;--panel:#fff;--ink:#132238;--muted:#62748a;--line:#dce4ee;--brand:#0f766e;--brand2:#115e59;--accent:#f0b429;--danger:#b42318;--shadow:0 8px 28px #12263a12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;line-height:1.55}
+header{background:linear-gradient(120deg,#102a43,#0f766e);color:#fff;padding:22px 16px 18px}
+.head{max-width:1150px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:14px;background:#ffffff1a;display:grid;place-items:center;font-size:25px;border:1px solid #ffffff40}
+h1{font-size:clamp(22px,4vw,30px);margin:0}.subtitle{color:#d8f3ef;margin:4px 0 0;font-size:14px}
+.actions{display:flex;gap:8px;flex-wrap:wrap}button,.btn{border:0;border-radius:10px;padding:10px 14px;font:inherit;font-weight:700;cursor:pointer;transition:.15s}button:hover,.btn:hover{filter:brightness(.96);transform:translateY(-1px)}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #f0b429;outline-offset:2px}
+.lang-btn{background:#fff;color:#123}.ghost{background:#ffffff1c;color:#fff;border:1px solid #ffffff55}
+main{max-width:1150px;margin:22px auto;padding:0 14px 40px}.notice{background:#fff8e6;border:1px solid #f4d58a;color:#6b4e00;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:14px}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:3px 0 12px;margin-bottom:10px}.tab{white-space:nowrap;background:#e4ebf2;color:#34465a}.tab.active{background:var(--brand);color:#fff}
+.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}.card{grid-column:span 6;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}.card.full{grid-column:1/-1}.card.third{grid-column:span 4}
+h2{font-size:19px;margin:0 0 12px}h3{font-size:16px;margin:0 0 10px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:13px;font-weight:700;color:#40536a}input,select,textarea{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:9px;padding:10px 11px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:100px;resize:vertical}.rowbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.primary{background:var(--brand);color:#fff}.secondary{background:#e8eef5;color:#24364b}.warning{background:#fff0d0;color:#6b4e00}.danger{background:#fff0ef;color:var(--danger)}
+.result{background:#effaf8;border:1px solid #b8e5dd;border-radius:12px;padding:12px;margin-top:14px;display:none}.result.show{display:block}.result strong{font-size:20px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.metric{padding:12px;background:#f7fafc;border:1px solid var(--line);border-radius:10px}.metric small{display:block;color:var(--muted)}.metric b{font-size:17px;overflow-wrap:anywhere}
+.tablewrap{overflow:auto;margin-top:12px;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:400px;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}th{background:#edf3f7}tr:last-child td{border-bottom:0}.smallbtn{padding:6px 9px;font-size:12px}.plot{width:100%;height:310px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;display:block}.splitlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}.splititem{padding:10px;border-radius:10px;background:#f3f7fb;border:1px solid var(--line);font-size:13px}
+footer{max-width:1150px;margin:auto;padding:0 14px 28px;color:var(--muted);font-size:12px}
+.ltr{direction:ltr;text-align:left}.ltr input{text-align:left}
+@media(max-width:800px){.card,.card.third{grid-column:1/-1}.head{align-items:flex-start}.metrics{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.plot{height:260px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="head">
+  <div class="brand"><div class="logo">📐</div><div><h1 data-ar="مِهني | أدوات مساحية" data-en="Mihani | Survey Tools">مِهني | أدوات مساحية</h1><p class="subtitle" data-ar="حساب الأراضي • تقسيم القطع • تحويل الإحداثيات" data-en="Land area • Parcel subdivision • Coordinate conversion">حساب الأراضي • تقسيم القطع • تحويل الإحداثيات</p></div></div>
+  <div class="actions"><button class="ghost" id="installBtn" hidden data-ar="تثبيت التطبيق" data-en="Install app">تثبيت التطبيق</button><button class="lang-btn" id="langBtn">English</button></div>
+ </div>
+</header>
+<main>
+<div class="notice" data-ar="نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية." data-en="Working prototype. Verify coordinate reference systems, units, and results before official surveying or property-boundary work.">نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية.</div>
+<nav class="tabs" aria-label="الأدوات">
+<button class="tab active" data-page="area" data-ar="مساحة الأرض" data-en="Land area">مساحة الأرض</button>
+<button class="tab" data-page="split" data-ar="تقسيم الأرض" data-en="Subdivision">تقسيم الأرض</button>
+<button class="tab" data-page="coords" data-ar="تحويل الإحداثيات" data-en="Coordinate conversion">تحويل الإحداثيات</button>
+<button class="tab" data-page="bearing" data-ar="المسافة والسمت" data-en="Distance & bearing">المسافة والسمت</button>
+<button class="tab" data-page="level" data-ar="الميزانية" data-en="Leveling">الميزانية</button>
+<button class="tab" data-page="projects" data-ar="المشاريع والبيانات" data-en="Projects & data">المشاريع والبيانات</button>
+</nav>
+
+<section id="page-area" class="page active">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="حساب المساحة من الإحداثيات" data-en="Area from coordinates">حساب المساحة من الإحداثيات</h2>
+   <p class="muted" data-ar="أدخل نقطة في كل سطر بالشكل: اسم النقطة, X/Easting, Y/Northing. استخدم إحداثيات مستوية وبوحدة واحدة." data-en="Enter one point per line: PointName, X/Easting, Y/Northing. Use projected coordinates in consistent units.">أدخل نقطة في كل سطر بالشكل: اسم النقطة, X/Easting, Y/Northing. استخدم إحداثيات مستوية وبوحدة واحدة.</p>
+   <div class="field"><label for="pointsInput" data-ar="الإحداثيات" data-en="Coordinates">الإحداثيات</label><textarea id="pointsInput" class="ltr" spellcheck="false">P1, 0, 0
+P2, 40, 0
+P3, 40, 30
+P4, 0, 30</textarea></div>
+   <div class="formgrid" style="margin-top:10px">
+    <div class="field"><label for="unitSelect" data-ar="وحدة الإحداثيات" data-en="Coordinate unit">وحدة الإحداثيات</label><select id="unitSelect"><option value="m">متر / m</option><option value="ft">قدم / ft</option></select></div>
+    <div class="field"><label for="areaUnit" data-ar="عرض المساحة" data-en="Area display">عرض المساحة</label><select id="areaUnit"><option value="m2">متر مربع / m²</option><option value="feddan">فدان + قيراط + سهم</option><option value="ha">هكتار / ha</option></select></div>
+   </div>
+   <div class="rowbtn"><button class="primary" id="calcArea" data-ar="احسب المساحة" data-en="Calculate area">احسب المساحة</button><button class="secondary" id="sampleArea" data-ar="تحميل مثال" data-en="Load sample">تحميل مثال</button><button class="secondary" id="exportPoints" data-ar="تصدير النقاط CSV" data-en="Export points CSV">تصدير النقاط CSV</button></div>
+   <div id="areaResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="رسم الأرض" data-en="Parcel sketch">رسم الأرض</h2>
+   <p class="muted" data-ar="رسم تخطيطي غير مقياسي، للتأكد بصريًا من ترتيب النقاط." data-en="Schematic sketch, not a scale-certified drawing. Use it to visually check point order.">رسم تخطيطي غير مقياسي، للتأكد بصريًا من ترتيب النقاط.</p>
+   <canvas id="parcelCanvas" class="plot" width="800" height="500" aria-label="Parcel sketch"></canvas>
+   <div id="pointTable" class="tablewrap"></div>
+  </article>
+ </div>
+</section>
+
+<section id="page-split" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="تقسيم إلى شرائح متساوية المساحة" data-en="Equal-area strip subdivision">تقسيم إلى شرائح متساوية المساحة</h2>
+   <p class="muted" data-ar="تُنشأ الشرائح بخطوط موازية لمحور Y، ويُحسب موضع كل خط عدديًا. مناسب كبداية للأراضي غير المعقدة؛ راجع الرسم والحدود قبل التنفيذ." data-en="Creates vertical strips parallel to the Y axis using numerical area solving. For initial planning only; verify geometry and boundaries before setting out.">تُنشأ الشرائح بخطوط موازية لمحور Y، ويُحسب موضع كل خط عدديًا. مناسب كبداية للأراضي غير المعقدة؛ راجع الرسم والحدود قبل التنفيذ.</p>
+   <div class="formgrid"><div class="field"><label for="partsCount" data-ar="عدد القطع" data-en="Number of parcels">عدد القطع</label><input id="partsCount" type="number" min="2" max="100" value="4"></div><div class="field"><label for="splitAxis" data-ar="اتجاه التقسيم" data-en="Split direction">اتجاه التقسيم</label><select id="splitAxis"><option value="x" data-ar="خطوط رأسية (حسب X)" data-en="Vertical cuts (by X)">خطوط رأسية (حسب X)</option><option value="y" data-ar="خطوط أفقية (حسب Y)" data-en="Horizontal cuts (by Y)">خطوط أفقية (حسب Y)</option></select></div></div>
+   <div class="rowbtn"><button class="primary" id="calcSplit" data-ar="احسب التقسيم" data-en="Calculate subdivision">احسب التقسيم</button></div>
+   <div id="splitResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="ملاحظات التقسيم" data-en="Subdivision notes">ملاحظات التقسيم</h2>
+   <ul><li data-ar="يجب أن تكون النقاط مرتبة حول حدود الأرض دون تقاطعات ذاتية." data-en="Points must follow the parcel boundary without self-intersections.">يجب أن تكون النقاط مرتبة حول حدود الأرض دون تقاطعات ذاتية.</li><li data-ar="قد ينتج عن التقسيم شرائح ضيقة أو غير مناسبة للاستخدام الفعلي." data-en="Some strips may be narrow or unsuitable for actual use.">قد ينتج عن التقسيم شرائح ضيقة أو غير مناسبة للاستخدام الفعلي.</li><li data-ar="هذا الإصدار لا يراعي الطرق أو الارتدادات أو الاشتراطات القانونية." data-en="This version does not account for roads, setbacks, or legal planning rules.">هذا الإصدار لا يراعي الطرق أو الارتدادات أو الاشتراطات القانونية.</li></ul>
+   <canvas id="splitCanvas" class="plot" width="800" height="500"></canvas>
+  </article>
+ </div>
+</section>
+
+<section id="page-coords" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="تحويل الإحداثيات الجغرافية إلى UTM والعكس" data-en="Geographic to UTM and back">تحويل الإحداثيات الجغرافية إلى UTM والعكس</h2>
+   <p class="muted" data-ar="يتطلب اتصال إنترنت لتحميل مكتبة التحويل. اختر النظام والمنطقة الصحيحين؛ التحويل التقريبي لا يغني عن تعريف Datum الصحيح." data-en="Internet is required to load the projection library. Choose the correct CRS and zone; correct datum definitions matter.">يتطلب اتصال إنترنت لتحميل مكتبة التحويل. اختر النظام والمنطقة الصحيحين؛ التحويل التقريبي لا يغني عن تعريف Datum الصحيح.</p>
+   <div class="field"><label for="coordMode" data-ar="اتجاه التحويل" data-en="Conversion direction">اتجاه التحويل</label><select id="coordMode"><option value="toUTM" data-ar="WGS84 جغرافي إلى UTM" data-en="WGS84 geographic to UTM">WGS84 جغرافي إلى UTM</option><option value="toGeo" data-ar="UTM إلى WGS84 جغرافي" data-en="UTM to WGS84 geographic">UTM إلى WGS84 جغرافي</option></select></div>
+   <div class="formgrid" style="margin-top:10px"><div class="field"><label for="zone" data-ar="رقم منطقة UTM (1–60)" data-en="UTM zone (1–60)">رقم منطقة UTM (1–60)</label><input id="zone" type="number" min="1" max="60" value="36"></div><div class="field"><label for="hemisphere" data-ar="نصف الكرة" data-en="Hemisphere">نصف الكرة</label><select id="hemisphere"><option value="N">شمالي / North</option><option value="S">جنوبي / South</option></select></div></div>
+   <div class="formgrid" style="margin-top:10px"><div class="field"><label for="coord1" id="coord1Label">خط العرض Latitude</label><input id="coord1" type="number" step="any" value="28.1099"></div><div class="field"><label for="coord2" id="coord2Label">خط الطول Longitude</label><input id="coord2" type="number" step="any" value="30.7503"></div></div>
+   <div class="rowbtn"><button class="primary" id="convertCoord" data-ar="حوّل الإحداثيات" data-en="Convert coordinates">حوّل الإحداثيات</button></div>
+   <div id="coordResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="تحويل دفعة نقاط" data-en="Batch conversion">تحويل دفعة نقاط</h2>
+   <p class="muted" data-ar="كل سطر يحتوي على اسم النقطة والقيمتين، مفصولة بفاصلة. استخدم نفس الاتجاه والمنطقة المحددين." data-en="Each line contains a point name and two comma-separated values. The selected direction and zone are used.">كل سطر يحتوي على اسم النقطة والقيمتين، مفصولة بفاصلة. استخدم نفس الاتجاه والمنطقة المحددين.</p>
+   <textarea id="batchCoords" class="ltr" placeholder="P1, 28.1099, 30.7503&#10;P2, 28.11, 30.76"></textarea>
+   <div class="rowbtn"><button class="secondary" id="convertBatch" data-ar="حوّل الكل" data-en="Convert all">حوّل الكل</button><button class="secondary" id="exportBatch" data-ar="تصدير النتائج CSV" data-en="Export results CSV">تصدير النتائج CSV</button></div>
+   <div id="batchResult" class="tablewrap"></div>
+  </article>
+ </div>
+</section>
+
+<section id="page-bearing" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="المسافة والسمت بين نقطتين" data-en="Distance and bearing between two points">المسافة والسمت بين نقطتين</h2>
+   <p class="muted" data-ar="السمت محسوب من الشمال باتجاه عقارب الساعة، باستخدام إحداثيات مستوية." data-en="Azimuth is measured clockwise from north using projected coordinates.">السمت محسوب من الشمال باتجاه عقارب الساعة، باستخدام إحداثيات مستوية.</p>
+   <div class="formgrid"><div class="field"><label>X1 / Easting</label><input id="bx1" type="number" step="any" value="500000"></div><div class="field"><label>Y1 / Northing</label><input id="by1" type="number" step="any" value="3100000"></div><div class="field"><label>X2 / Easting</label><input id="bx2" type="number" step="any" value="500120"></div><div class="field"><label>Y2 / Northing</label><input id="by2" type="number" step="any" value="3100160"></div></div>
+   <div class="rowbtn"><button class="primary" id="calcBearing" data-ar="احسب المسافة والسمت" data-en="Calculate distance & azimuth">احسب المسافة والسمت</button></div><div id="bearingResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="حساب إحداثيات من مسافة وسمت" data-en="Coordinate from distance and azimuth">حساب إحداثيات من مسافة وسمت</h2>
+   <div class="formgrid"><div class="field"><label>X / Easting</label><input id="fx" type="number" step="any" value="500000"></div><div class="field"><label>Y / Northing</label><input id="fy" type="number" step="any" value="3100000"></div><div class="field"><label data-ar="المسافة (متر)" data-en="Distance (m)">المسافة (متر)</label><input id="fd" type="number" min="0" step="any" value="100"></div><div class="field"><label data-ar="السمت (درجة من الشمال)" data-en="Azimuth (degrees from north)">السمت (درجة من الشمال)</label><input id="fa" type="number" step="any" value="45"></div></div>
+   <div class="rowbtn"><button class="primary" id="calcForward" data-ar="احسب النقطة الجديدة" data-en="Calculate new point">احسب النقطة الجديدة</button></div><div id="forwardResult" class="result"></div>
+  </article>
+ </div>
+</section>
+
+<section id="page-level" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="حساب المناسيب بطريقة منسوب خط النظر (HI)" data-en="Leveling by height of instrument (HI)">حساب المناسيب بطريقة منسوب خط النظر (HI)</h2>
+   <p class="muted" data-ar="أدخل منسوب النقطة المعروفة ثم القراءات: BS للخلفية وIS للوسطية وFS للأمامية. هذا نموذج حسابي مبسط وليس دفتر ميزانية كامل." data-en="Enter known benchmark elevation and BS, IS, FS readings. This is a simplified calculator, not a full level book.">أدخل منسوب النقطة المعروفة ثم القراءات: BS للخلفية وIS للوسطية وFS للأمامية. هذا نموذج حسابي مبسط وليس دفتر ميزانية كامل.</p>
+   <div class="formgrid"><div class="field"><label data-ar="منسوب النقطة المعروفة" data-en="Known elevation">منسوب النقطة المعروفة</label><input id="knownRL" type="number" step="any" value="100"></div><div class="field"><label data-ar="قراءة خلفية BS" data-en="Back sight (BS)">قراءة خلفية BS</label><input id="bs" type="number" step="any" value="1.25"></div><div class="field"><label data-ar="قراءة وسطية IS (اختياري)" data-en="Intermediate sight (IS, optional)">قراءة وسطية IS (اختياري)</label><input id="isRead" type="number" step="any" placeholder="—"></div><div class="field"><label data-ar="قراءة أمامية FS" data-en="Fore sight (FS)">قراءة أمامية FS</label><input id="fs" type="number" step="any" value="1.85"></div></div>
+   <div class="rowbtn"><button class="primary" id="calcLevel" data-ar="احسب المناسيب" data-en="Calculate elevations">احسب المناسيب</button></div><div id="levelResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="معادلات التحقق" data-en="Check equations">معادلات التحقق</h2>
+   <div class="metric"><small>HI = RL + BS</small><b>منسوب خط النظر</b></div><div class="metric"><small>RL = HI − staff reading</small><b>منسوب النقطة</b></div><p class="muted" data-ar="للمشروعات الفعلية سجّل جميع نقاط التحويل وقراءات الخلفية والأمامية، ثم نفّذ فحص الإقفال حسب مواصفات العمل." data-en="For real projects, record all turning points and BS/FS readings, then check closure against project specifications.">للمشروعات الفعلية سجّل جميع نقاط التحويل وقراءات الخلفية والأمامية، ثم نفّذ فحص الإقفال حسب مواصفات العمل.</p>
+  </article>
+ </div>
+</section>
+
+<section id="page-projects" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="حفظ المشروع على هذا الجهاز" data-en="Save project on this device">حفظ المشروع على هذا الجهاز</h2>
+   <p class="muted" data-ar="يحفظ بيانات النقاط الحالية في متصفح هذا الجهاز فقط. امسح بيانات المتصفح بحذر." data-en="Saves the current point list in this browser on this device only. Be careful when clearing browser data.">يحفظ بيانات النقاط الحالية في متصفح هذا الجهاز فقط. امسح بيانات المتصفح بحذر.</p>
+   <div class="field"><label data-ar="اسم المشروع" data-en="Project name">اسم المشروع</label><input id="projectName" value="مشروع أرض 1"></div>
+   <div class="rowbtn"><button class="primary" id="saveProject" data-ar="حفظ المشروع" data-en="Save project">حفظ المشروع</button><button class="secondary" id="loadProject" data-ar="استرجاع المشروع" data-en="Load project">استرجاع المشروع</button><button class="danger" id="deleteProject" data-ar="حذف المحفوظ" data-en="Delete saved project">حذف المحفوظ</button></div><div id="projectResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="استيراد / تصدير" data-en="Import / export">استيراد / تصدير</h2>
+   <p class="muted" data-ar="يمكنك تنزيل نقاط الأرض كملف CSV أو تحميل ملف نصي/CSV. التنسيق المدعوم: اسم النقطة, X, Y." data-en="Download points as CSV or load a text/CSV file. Supported format: point name, X, Y.">يمكنك تنزيل نقاط الأرض كملف CSV أو تحميل ملف نصي/CSV. التنسيق المدعوم: اسم النقطة, X, Y.</p>
+   <input id="fileInput" type="file" accept=".csv,.txt,text/plain,text/csv">
+   <div class="rowbtn"><button class="secondary" id="importFile" data-ar="استيراد الملف" data-en="Import file">استيراد الملف</button><button class="secondary" id="exportJson" data-ar="تصدير نسخة احتياطية JSON" data-en="Export JSON backup">تصدير نسخة احتياطية JSON</button></div><div id="fileResult" class="result"></div>
+  </article>
+ </div>
+</section>
+</main>
+<footer data-ar="مِهني — نسخة أولية تجريبية. لا تستخدم النتائج وحدها لإصدار مستندات قانونية أو تنفيذ حدود ملكية دون مراجعة مختص." data-en="Mihani — prototype. Do not use results alone for legal documents or property-boundary staking without professional verification.">مِهني — نسخة أولية تجريبية. لا تستخدم النتائج وحدها لإصدار مستندات قانونية أو تنفيذ حدود ملكية دون مراجعة مختص.</footer>
+<script src="https://cdn.jsdelivr.net/npm/proj4@2.11.0/dist/proj4.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+let language = localStorage.getItem('mihani-language') || 'ar';
+let currentPoints = [];
+let batchRows = [];
+let splitCuts = [];
+let deferredInstall = null;
+
+function t(ar,en){return language==='ar'?ar:en}
+function num(n,d=3){return Number(n).toLocaleString(language==='ar'?'ar-EG':'en-US',{maximumFractionDigits:d,minimumFractionDigits:0})}
+function showResult(id,html){const el=$(id);el.innerHTML=html;el.classList.add('show')}
+function hideResult(id){$(id).classList.remove('show')}
+function parsePoints(text){
+ const lines=text.split(/\r?\n/).map(s=>s.trim()).filter(Boolean), pts=[];
+ for(let i=0;i<lines.length;i++){
+  const parts=lines[i].split(/[,\t;]+/).map(s=>s.trim());
+  if(parts.length<3) throw new Error(t(`السطر ${i+1}: اكتب الاسم و X و Y مفصولة بفواصل.`,`Line ${i+1}: enter name, X and Y separated by commas.`));
+  const x=Number(parts[1]), y=Number(parts[2]);
+  if(!Number.isFinite(x)||!Number.isFinite(y)) throw new Error(t(`إحداثيات غير صحيحة في السطر ${i+1}.`,`Invalid coordinates on line ${i+1}.`));
+  pts.push({name:parts[0]||`P${i+1}`,x,y});
+ }
+ if(pts.length<3)throw new Error(t('أدخل 3 نقاط على الأقل.','Enter at least 3 points.'));
+ if(pts.length>10000)throw new Error(t('عدد النقاط أكبر من الحد المسموح.','Too many points.'));
+ return pts;
+}
+function polygonStats(pts){
+ let twice=0, perimeter=0;
+ for(let i=0;i<pts.length;i++){const a=pts[i],b=pts[(i+1)%pts.length];twice+=a.x*b.y-b.x*a.y;perimeter+=Math.hypot(b.x-a.x,b.y-a.y)}
+ return {signed:twice/2,area:Math.abs(twice/2),perimeter};
+}
+function areaDisplay(area,unit){
+ const sqFactor=unit==='ft'?0.09290304:1, m2=area*sqFactor;
+ if($('areaUnit').value==='feddan'){
+  const f=Math.floor(m2/4200), rem=m2-f*4200, q=Math.floor(rem/175), s=(rem-q*175)/7.2916666667;
+  return `${num(f,4)} ${t('فدان','feddan')}، ${num(q,3)} ${t('قيراط','qirat')}، ${num(s,2)} ${t('سهم','sahm')} <span class="muted">(${num(m2,3)} m²)</span>`;
+ }
+ if($('areaUnit').value==='ha')return `${num(m2/10000,5)} ha <span class="muted">(${num(m2,3)} m²)</span>`;
+ return `${num(m2,3)} m²${unit==='ft'?` <span class="muted">(${num(area,3)} ft²)</span>`:''}`;
+}
+function renderCanvas(canvas,pts,cuts=[]){
+ const ctx=canvas.getContext('2d'), w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#fbfdff';ctx.fillRect(0,0,w,h);
+ if(!pts||pts.length<2){ctx.fillStyle='#62748a';ctx.font='20px sans-serif';ctx.fillText(t('أدخل الإحداثيات لرسم الأرض','Enter coordinates to draw the parcel'),30,40);return}
+ const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y),minX=Math.min(...xs),maxX=Math.max(...xs),minY=Math.min(...ys),maxY=Math.max(...ys);
+ const dx=maxX-minX||1,dy=maxY-minY||1,pad=65,scale=Math.min((w-pad*2)/dx,(h-pad*2)/dy);
+ const X=x=>pad+(x-minX)*scale+(w-pad*2-dx*scale)/2,Y=y=>h-pad-(y-minY)*scale-(h-pad*2-dy*scale)/2;
+ ctx.strokeStyle='#0f766e';ctx.lineWidth=3;ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(X(p.x),Y(p.y)):ctx.moveTo(X(p.x),Y(p.y)));ctx.closePath();ctx.fillStyle='#0f766e18';ctx.fill();ctx.stroke();
+ cuts.forEach(c=>{ctx.strokeStyle='#e09f19';ctx.lineWidth=2;ctx.setLineDash([7,5]);ctx.beginPath();if(c.axis==='x'){ctx.moveTo(X(c.value),Y(minY-dy));ctx.lineTo(X(c.value),Y(maxY+dy))}else{ctx.moveTo(X(minX-dx),Y(c.value));ctx.lineTo(X(maxX+dx),Y(c.value))}ctx.stroke();ctx.setLineDash([])});
+ pts.forEach((p,i)=>{ctx.fillStyle='#102a43';ctx.beginPath();ctx.arc(X(p.x),Y(p.y),5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#102a43';ctx.font='bold 16px sans-serif';ctx.textAlign='left';ctx.fillText(p.name,X(p.x)+8,Y(p.y)-8)});
+}
+function refreshArea(){
+ try{
+  currentPoints=parsePoints($('pointsInput').value);const st=polygonStats(currentPoints);
+  if(st.area<1e-10)throw new Error(t('المساحة تساوي صفرًا؛ راجع ترتيب النقاط.','Area is zero; check point order.'));
+  const unit=$('unitSelect').value;
+  showResult('areaResult',`<div>${t('المساحة','Area')}: <strong>${areaDisplay(st.area,unit)}</strong></div><div class="metrics"><div class="metric"><small>${t('المحيط','Perimeter')}</small><b>${num(st.perimeter*(unit==='ft'?0.3048:1),3)} m</b></div><div class="metric"><small>${t('عدد الرؤوس','Vertices')}</small><b>${currentPoints.length}</b></div><div class="metric"><small>${t('المساحة الموقعة','Signed area')}</small><b>${num(st.signed,3)} ${unit==='ft'?'ft²':'m²'}</b></div></div>`);
+  renderCanvas($('parcelCanvas'),currentPoints);$('pointTable').innerHTML=`<table><thead><tr><th>${t('النقطة','Point')}</th><th>X / E</th><th>Y / N</th></tr></thead><tbody>${currentPoints.map(p=>`<tr><td>${escapeHtml(p.name)}</td><td>${num(p.x,4)}</td><td>${num(p.y,4)}</td></tr>`).join('')}</tbody></table>`;
+  return true;
+ }catch(e){showResult('areaResult',`<span style="color:#b42318">${escapeHtml(e.message)}</span>`);return false}
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function clipPolygon(pts,axis,value,keepLess){
+ const key=axis==='x'?'x':'y', out=[];
+ for(let i=0;i<pts.length;i++){
+  const a=pts[i],b=pts[(i+1)%pts.length], ina=keepLess?a[key]<=value+1e-10:a[key]>=value-1e-10, inb=keepLess?b[key]<=value+1e-10:b[key]>=value-1e-10;
+  if(ina)out.push({...a});
+  if(ina!==inb){const r=(value-a[key])/(b[key]-a[key]);out.push({name:'cut',x:a.x+r*(b.x-a.x),y:a.y+r*(b.y-a.y)})}
+ }
+ return out;
+}
+function clippedArea(pts,axis,value,keepLess){const p=clipPolygon(pts,axis,value,keepLess);return p.length>=3?polygonStats(p).area:0}
+function solveCuts(pts,n,axis){
+ const coords=pts.map(p=>p[axis==='x'?'x':'y']),min=Math.min(...coords),max=Math.max(...coords),total=polygonStats(pts).area,cuts=[];
+ if(total<=0||max-min<=1e-12)throw new Error(t('لا يمكن تقسيم هذا الشكل في الاتجاه المختار.','Cannot split this polygon along the selected direction.'));
+ for(let k=1;k<n;k++){
+  const target=total*k/n;let lo=min,hi=max;
+  for(let j=0;j<70;j++){const mid=(lo+hi)/2,a=clippedArea(pts,axis,mid,true);if(a<target)lo=mid;else hi=mid}
+  cuts.push({axis,value:(lo+hi)/2,target});
+ }
+ return cuts;
+}
+function doSplit(){
+ if(!refreshArea())return;
+ const n=Number($('partsCount').value),axis=$('splitAxis').value;
+ if(!Number.isInteger(n)||n<2||n>100){showResult('splitResult',t('عدد القطع يجب أن يكون من 2 إلى 100.','Parcel count must be between 2 and 100.'));return}
+ try{
+  splitCuts=solveCuts(currentPoints,n,axis);
+  const total=polygonStats(currentPoints).area;
+  const areas=[];let prev=axis==='x'?Math.min(...currentPoints.map(p=>p.x)):Math.min(...currentPoints.map(p=>p.y));
+  for(let i=0;i<=splitCuts.length;i++){
+   const next=i<splitCuts.length?splitCuts[i].value:(axis==='x'?Math.max(...currentPoints.map(p=>p.x)):Math.max(...currentPoints.map(p=>p.y)));
+   const hi=clippedArea(currentPoints,axis,next,true),lo=clippedArea(currentPoints,axis,prev,true);
+   areas.push(i===0?hi:(i===splitCuts.length?total-lo:hi-lo));prev=next;
+  }
+  showResult('splitResult',`<strong>${n} ${t('قطع متقاربة المساحة','near-equal area parcels')}</strong><div class="muted">${t('المساحة المستهدفة لكل قطعة','Target area per parcel')}: ${num(total/n,3)} ${$('unitSelect').value==='ft'?'ft²':'m²'}</div><div class="splitlist">${splitCuts.map((c,i)=>`<div class="splititem">${t('خط تقسيم','Cut line')} ${i+1}<br><b>${axis.toUpperCase()} = ${num(c.value,4)}</b></div>`).join('')}</div><p class="muted">${t('راجع الرسم وحدود القطع؛ لا تعتمد على هذا الحساب وحده للتوقيع الميداني.','Check the sketch and parcel boundaries; do not use this calculation alone for field staking.')}</p>`);
+  renderCanvas($('splitCanvas'),currentPoints,splitCuts);
+ }catch(e){showResult('splitResult',escapeHtml(e.message))}
+}
+function download(name,content,type='text/plain;charset=utf-8'){const blob=new Blob(['\ufeff',content],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+function csvEscape(v){return '"'+String(v).replace(/"/g,'""')+'"'}
+function exportPointCsv(){try{const pts=parsePoints($('pointsInput').value);download('survey-points.csv',['Name,X,Y',...pts.map(p=>[p.name,p.x,p.y].map(csvEscape).join(','))].join('\r\n'),'text/csv;charset=utf-8')}catch(e){showResult('areaResult',escapeHtml(e.message))}}
+function crsFor(zone,hemi){return `+proj=utm +zone=${zone} ${hemi==='S'?'+south':''} +datum=WGS84 +units=m +no_defs`}
+function convertOne(a,b,mode,zone,hemi){
+ if(!window.proj4)throw new Error(t('تعذر تحميل مكتبة التحويل. تحقق من الإنترنت ثم أعد المحاولة.','Projection library did not load. Check your internet and try again.'));
+ if(!Number.isInteger(zone)||zone<1||zone>60)throw new Error(t('منطقة UTM يجب أن تكون رقمًا من 1 إلى 60.','UTM zone must be an integer from 1 to 60.'));
+ const utm=crsFor(zone,hemi);
+ if(mode==='toUTM'){if(a < -90||a>90||b < -180||b>180)throw new Error(t('خط العرض أو الطول خارج النطاق.','Latitude or longitude out of range.'));const out=proj4('EPSG:4326',utm,[b,a]);return {one:out[0],two:out[1],labels:['Easting (m)','Northing (m)']}}
+ const out=proj4(utm,'EPSG:4326',[a,b]);return {one:out[1],two:out[0],labels:['Latitude (°)','Longitude (°)']}
+}
+function convertCoord(){
+ try{const mode=$('coordMode').value,zone=Number($('zone').value),hemi=$('hemisphere').value,a=Number($('coord1').value),b=Number($('coord2').value);if(!Number.isFinite(a)||!Number.isFinite(b))throw new Error(t('أدخل قيم إحداثيات صحيحة.','Enter valid coordinate values.'));
+ const r=convertOne(a,b,mode,zone,hemi);showResult('coordResult',`<div><b>${r.labels[0]}:</b> <strong>${num(r.one,5)}</strong></div><div><b>${r.labels[1]}:</b> <strong>${num(r.two,5)}</strong></div><p class="muted">${t('النظام المستخدم','CRS used')}: ${mode==='toUTM'?'WGS84 / UTM zone '+zone+hemi:'WGS84 geographic'}</p>`)
+ }catch(e){showResult('coordResult',`<span style="color:#b42318">${escapeHtml(e.message)}</span>`)}
+}
+function convertBatch(){
+ try{const lines=$('batchCoords').value.split(/\r?\n/).map(s=>s.trim()).filter(Boolean);if(!lines.length)throw new Error(t('أدخل نقاطًا أولًا.','Enter points first.'));
+ const mode=$('coordMode').value,zone=Number($('zone').value),hemi=$('hemisphere').value;
+ batchRows=lines.map((line,i)=>{const p=line.split(/[,\t;]+/).map(s=>s.trim());if(p.length<3)throw new Error(t(`السطر ${i+1} غير صحيح.`,`Invalid line ${i+1}.`));const r=convertOne(Number(p[1]),Number(p[2]),mode,zone,hemi);return {name:p[0],a:r.one,b:r.two}});
+ $('batchResult').innerHTML=`<table><thead><tr><th>${t('النقطة','Point')}</th><th>${mode==='toUTM'?'Easting (m)':'Latitude (°)'}</th><th>${mode==='toUTM'?'Northing (m)':'Longitude (°)'}</th></tr></thead><tbody>${batchRows.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${num(r.a,5)}</td><td>${num(r.b,5)}</td></tr>`).join('')}</tbody></table>`;
+ }catch(e){$('batchResult').innerHTML=`<p style="color:#b42318;padding:10px">${escapeHtml(e.message)}</p>`}
+}
+function updateCoordLabels(){const to=$('coordMode').value==='toUTM';$('coord1Label').textContent=to?'خط العرض Latitude (°)':'Easting (m)';$('coord2Label').textContent=to?'خط الطول Longitude (°)':'Northing (m)';$('coord1').value=to?'28.1099':'475000';$('coord2').value=to?'30.7503':'3110000'}
+function calcBearing(){
+ const x1=Number($('bx1').value),y1=Number($('by1').value),x2=Number($('bx2').value),y2=Number($('by2').value),dx=x2-x1,dy=y2-y1,d=Math.hypot(dx,dy),az=(Math.atan2(dx,dy)*180/Math.PI+360)%360;
+ showResult('bearingResult',`<div>${t('المسافة الأفقية','Horizontal distance')}: <strong>${num(d,4)} m</strong></div><div>${t('السمت من الشمال مع عقارب الساعة','Azimuth clockwise from north')}: <strong>${num(az,5)}°</strong></div><div class="muted">ΔE = ${num(dx,4)} m · ΔN = ${num(dy,4)} m</div>`)
+}
+function calcForward(){const x=Number($('fx').value),y=Number($('fy').value),d=Number($('fd').value),a=Number($('fa').value);if(d<0||![x,y,d,a].every(Number.isFinite)){showResult('forwardResult',t('راجع القيم المدخلة.','Check entered values.'));return}const rad=a*Math.PI/180,nx=x+d*Math.sin(rad),ny=y+d*Math.cos(rad);showResult('forwardResult',`<div>X₂ / Easting: <strong>${num(nx,4)}</strong></div><div>Y₂ / Northing: <strong>${num(ny,4)}</strong></div><div class="muted">ΔE = ${num(nx-x,4)} m · ΔN = ${num(ny-y,4)} m</div>`)}
+function calcLevel(){const rl=Number($('knownRL').value),bs=Number($('bs').value),fs=Number($('fs').value),isv=$('isRead').value.trim()===''?null:Number($('isRead').value);if(![rl,bs,fs].every(Number.isFinite)||(isv!==null&&!Number.isFinite(isv))){showResult('levelResult',t('راجع القراءات.','Check readings.'));return}const hi=rl+bs,fsrl=hi-fs,isrl=isv===null?null:hi-isv;showResult('levelResult',`<div>HI = RL + BS = <strong>${num(hi,4)} m</strong></div>${isrl===null?'':`<div>RL (IS) = <strong>${num(isrl,4)} m</strong></div>`}<div>RL (FS) = HI − FS = <strong>${num(fsrl,4)} m</strong></div><div class="muted">${t('فرق المنسوب بين النقطة المعروفة ونقطة FS','Elevation difference from known point to FS')}: ${num(fsrl-rl,4)} m</div>`)}
+function saveProject(){const data={name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value,updated:new Date().toISOString()};localStorage.setItem('mihani-project',JSON.stringify(data));showResult('projectResult',t('تم حفظ المشروع على هذا الجهاز.','Project saved on this device.'))}
+function loadProject(){const raw=localStorage.getItem('mihani-project');if(!raw){showResult('projectResult',t('لا يوجد مشروع محفوظ.','No saved project found.'));return}try{const d=JSON.parse(raw);$('projectName').value=d.name||'';$('pointsInput').value=d.points||'';$('unitSelect').value=d.unit||'m';$('areaUnit').value=d.areaUnit||'m2';refreshArea();showResult('projectResult',t('تم استرجاع المشروع.','Project loaded.'))}catch(e){showResult('projectResult',t('تعذر قراءة المشروع المحفوظ.','Could not read saved project.'))}}
+function setLanguage(lang){language=lang;localStorage.setItem('mihani-language',lang);document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-ar][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});$('langBtn').textContent=lang==='ar'?'English':'العربية';document.querySelectorAll('option[data-ar][data-en]').forEach(el=>el.textContent=el.dataset[lang]);refreshArea();if(splitCuts.length)renderCanvas($('splitCanvas'),currentPoints,splitCuts)}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+b.dataset.page))}));
+$('langBtn').addEventListener('click',()=>setLanguage(language==='ar'?'en':'ar'));
+$('calcArea').addEventListener('click',refreshArea);$('sampleArea').addEventListener('click',()=>{$('pointsInput').value='P1, 0, 0\nP2, 40, 0\nP3, 40, 30\nP4, 0, 30';refreshArea()});
+$('unitSelect').addEventListener('change',refreshArea);$('areaUnit').addEventListener('change',refreshArea);$('exportPoints').addEventListener('click',exportPointCsv);
+$('calcSplit').addEventListener('click',doSplit);$('coordMode').addEventListener('change',updateCoordLabels);$('convertCoord').addEventListener('click',convertCoord);$('convertBatch').addEventListener('click',convertBatch);
+$('exportBatch').addEventListener('click',()=>{if(!batchRows.length){convertBatch();if(!batchRows.length)return}download('converted-coordinates.csv',['Name,Coordinate1,Coordinate2',...batchRows.map(r=>[r.name,r.a,r.b].map(csvEscape).join(','))].join('\r\n'),'text/csv;charset=utf-8')});
+$('calcBearing').addEventListener('click',calcBearing);$('calcForward').addEventListener('click',calcForward);$('calcLevel').addEventListener('click',calcLevel);
+$('saveProject').addEventListener('click',saveProject);$('loadProject').addEventListener('click',loadProject);$('deleteProject').addEventListener('click',()=>{localStorage.removeItem('mihani-project');showResult('projectResult',t('تم حذف المشروع المحفوظ.','Saved project deleted.'))});
+$('importFile').addEventListener('click',()=>{const f=$('fileInput').files[0];if(!f){showResult('fileResult',t('اختر ملفًا أولًا.','Choose a file first.'));return}const r=new FileReader();r.onload=()=>{$('pointsInput').value=String(r.result).replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>!/^name\s*,\s*x\s*,\s*y/i.test(x.trim())).join('\n');if(refreshArea())showResult('fileResult',t('تم استيراد الملف.','File imported.'))};r.onerror=()=>showResult('fileResult',t('تعذر قراءة الملف.','Could not read file.'));r.readAsText(f)});
+$('exportJson').addEventListener('click',()=>{const d={app:'Mihani Survey Tools',version:'0.1.0',name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value};download('mihani-backup.json',JSON.stringify(d,null,2),'application/json')});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installBtn').hidden=false});$('installBtn').addEventListener('click',async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;$('installBtn').hidden=true});
+setLanguage(language);refreshArea();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body>
+</html>
