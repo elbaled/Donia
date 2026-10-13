@@ -18,7 +18,7 @@ h1{font-size:clamp(22px,4vw,30px);margin:0}.subtitle{color:#d8f3ef;margin:4px 0 
 .lang-btn{background:#fff;color:#123}.ghost{background:#ffffff1c;color:#fff;border:1px solid #ffffff55}
 main{max-width:1150px;margin:22px auto;padding:0 14px 40px}.notice{background:#fff8e6;border:1px solid #f4d58a;color:#6b4e00;padding:12px 14px;border-radius:12px;margin-bottom:18px;font-size:14px}
 .tabs{display:flex;gap:8px;overflow-x:auto;padding:3px 0 12px;margin-bottom:10px}.tab{white-space:nowrap;background:#e4ebf2;color:#34465a}.tab.active{background:var(--brand);color:#fff}
-.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}.card{grid-column:span 6;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}.card.full{grid-column:1/-1}.card.third{grid-column:span 4}
+.page{display:none}.page.active{display:block}.manual-shape-fields[hidden]{display:none!important}.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:16px}.card{grid-column:span 6;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow);min-width:0}.card.full{grid-column:1/-1}.card.third{grid-column:span 4}
 h2{font-size:19px;margin:0 0 12px}h3{font-size:16px;margin:0 0 10px}.muted{color:var(--muted);font-size:13px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.field{display:flex;flex-direction:column;gap:5px;min-width:0}.field label{font-size:13px;font-weight:700;color:#40536a}input,select,textarea{width:100%;min-width:0;border:1px solid #cbd5e1;border-radius:9px;padding:10px 11px;background:#fff;color:var(--ink);font:inherit}textarea{min-height:100px;resize:vertical}.rowbtn{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.primary{background:var(--brand);color:#fff}.secondary{background:#e8eef5;color:#24364b}.warning{background:#fff0d0;color:#6b4e00}.danger{background:#fff0ef;color:var(--danger)}
 .result{background:#effaf8;border:1px solid #b8e5dd;border-radius:12px;padding:12px;margin-top:14px;display:none}.result.show{display:block}.result strong{font-size:20px}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.metric{padding:12px;background:#f7fafc;border:1px solid var(--line);border-radius:10px}.metric small{display:block;color:var(--muted)}.metric b{font-size:17px;overflow-wrap:anywhere}
 .tablewrap{overflow:auto;margin-top:12px;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:400px;font-size:13px}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}th{background:#edf3f7}tr:last-child td{border-bottom:0}.smallbtn{padding:6px 9px;font-size:12px}.plot{width:100%;height:310px;border:1px solid var(--line);border-radius:12px;background:#fbfdff;display:block}.splitlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin-top:12px}.splititem{padding:10px;border-radius:10px;background:#f3f7fb;border:1px solid var(--line);font-size:13px}
@@ -93,6 +93,7 @@ main{margin-top:20px}
 <main>
 <div class="notice" data-ar="نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية." data-en="Working prototype. Verify coordinate reference systems, units, and results before official surveying or property-boundary work.">نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية.</div>
 <nav class="tabs" aria-label="الأدوات">
+<button class="tab" data-page="manualarea" data-ar="قياس بدون إحداثيات" data-en="Area without coordinates">قياس بدون إحداثيات</button>
 <button class="tab active" data-page="area" data-ar="مساحة الأرض" data-en="Land area">مساحة الأرض</button>
 <button class="tab" data-page="split" data-ar="تقسيم الأرض" data-en="Subdivision">تقسيم الأرض</button>
 <button class="tab" data-page="coords" data-ar="تحويل الإحداثيات" data-en="Coordinate conversion">تحويل الإحداثيات</button>
@@ -126,6 +127,39 @@ P4, 0, 30</textarea></div>
    <p class="muted" data-ar="رسم تخطيطي غير مقياسي، للتأكد بصريًا من ترتيب النقاط." data-en="Schematic sketch, not a scale-certified drawing. Use it to visually check point order.">رسم تخطيطي غير مقياسي، للتأكد بصريًا من ترتيب النقاط.</p>
    <canvas id="parcelCanvas" class="plot" width="800" height="500" aria-label="Parcel sketch"></canvas>
    <div id="pointTable" class="tablewrap"></div>
+  </article>
+ </div>
+</section>
+
+
+<section id="page-manualarea" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2 data-ar="قياس الأرض بالأبعاد بالمتر" data-en="Measure land using dimensions in metres">قياس الأرض بالأبعاد بالمتر</h2>
+   <p class="muted" data-ar="اختر شكل الأرض وأدخل الأبعاد بالمتر. لا تحتاج لإحداثيات. يجب أن تكون الأبعاد مقاسة على الطبيعة أو من رسم موثوق." data-en="Choose a land shape and enter dimensions in metres. Coordinates are not needed. Dimensions must be measured on site or taken from a reliable plan.">اختر شكل الأرض وأدخل الأبعاد بالمتر. لا تحتاج لإحداثيات. يجب أن تكون الأبعاد مقاسة على الطبيعة أو من رسم موثوق.</p>
+   <div class="field"><label for="manualShape" data-ar="شكل الأرض" data-en="Land shape">شكل الأرض</label><select id="manualShape"><option value="rectangle" data-ar="مستطيل" data-en="Rectangle">مستطيل</option><option value="square" data-ar="مربع" data-en="Square">مربع</option><option value="triangle" data-ar="مثلث" data-en="Triangle">مثلث</option><option value="trapezoid" data-ar="شبه منحرف" data-en="Trapezoid">شبه منحرف</option><option value="circle" data-ar="دائرة" data-en="Circle">دائرة</option><option value="irregular" data-ar="غير منتظمة (تقسيم لمثلثات)" data-en="Irregular (triangulation)">غير منتظمة (تقسيم لمثلثات)</option></select></div>
+   <div id="manualRegularFields" style="margin-top:12px">
+    <div class="formgrid manual-shape-fields" data-shapes="rectangle"><div class="field"><label for="manualLength" data-ar="الطول (م)" data-en="Length (m)">الطول (م)</label><input id="manualLength" type="number" min="0" step="any" value="40"></div><div class="field"><label for="manualWidth" data-ar="العرض (م)" data-en="Width (m)">العرض (م)</label><input id="manualWidth" type="number" min="0" step="any" value="25"></div></div>
+    <div class="formgrid manual-shape-fields" data-shapes="square" hidden><div class="field"><label for="manualSide" data-ar="طول الضلع (م)" data-en="Side (m)">طول الضلع (م)</label><input id="manualSide" type="number" min="0" step="any" value="20"></div></div>
+    <div class="formgrid manual-shape-fields" data-shapes="triangle" hidden><div class="field"><label for="triBase" data-ar="القاعدة (م)" data-en="Base (m)">القاعدة (م)</label><input id="triBase" type="number" min="0" step="any" value="20"></div><div class="field"><label for="triHeight" data-ar="الارتفاع العمودي (م)" data-en="Perpendicular height (m)">الارتفاع العمودي (م)</label><input id="triHeight" type="number" min="0" step="any" value="12"></div><div class="field"><label for="triSideA" data-ar="الضلع الأول للمحيط (م)" data-en="Side A for perimeter (m)">الضلع الأول للمحيط (م)</label><input id="triSideA" type="number" min="0" step="any" placeholder="اختياري"></div><div class="field"><label for="triSideB" data-ar="الضلع الثاني للمحيط (م)" data-en="Side B for perimeter (m)">الضلع الثاني للمحيط (م)</label><input id="triSideB" type="number" min="0" step="any" placeholder="اختياري"></div></div>
+    <div class="formgrid manual-shape-fields" data-shapes="trapezoid" hidden><div class="field"><label for="trapA" data-ar="القاعدة الكبرى (م)" data-en="Long base (m)">القاعدة الكبرى (م)</label><input id="trapA" type="number" min="0" step="any" value="30"></div><div class="field"><label for="trapB" data-ar="القاعدة الصغرى (م)" data-en="Short base (m)">القاعدة الصغرى (م)</label><input id="trapB" type="number" min="0" step="any" value="18"></div><div class="field"><label for="trapH" data-ar="الارتفاع العمودي (م)" data-en="Perpendicular height (m)">الارتفاع العمودي (م)</label><input id="trapH" type="number" min="0" step="any" value="12"></div><div class="field"><label for="trapSideA" data-ar="الضلع الجانبي الأول (م)" data-en="Side A (m)">الضلع الجانبي الأول (م)</label><input id="trapSideA" type="number" min="0" step="any" placeholder="اختياري"></div><div class="field"><label for="trapSideB" data-ar="الضلع الجانبي الثاني (م)" data-en="Side B (m)">الضلع الجانبي الثاني (م)</label><input id="trapSideB" type="number" min="0" step="any" placeholder="اختياري"></div></div>
+    <div class="formgrid manual-shape-fields" data-shapes="circle" hidden><div class="field"><label for="circleRadius" data-ar="نصف القطر (م)" data-en="Radius (m)">نصف القطر (م)</label><input id="circleRadius" type="number" min="0" step="any" value="10"></div></div>
+   </div>
+   <div class="manual-shape-fields" data-shapes="irregular" hidden style="margin-top:12px">
+    <div class="field"><label for="irregularTriangles" data-ar="بيانات المثلثات: القاعدة، الارتفاع لكل مثلث في سطر" data-en="Triangle data: base, height for each triangle, one per line">بيانات المثلثات: القاعدة، الارتفاع لكل مثلث في سطر</label><textarea id="irregularTriangles" class="ltr" spellcheck="false" placeholder="20, 12&#10;15, 9&#10;18, 10">20, 12
+15, 9
+18, 10</textarea></div>
+    <div class="field" style="margin-top:10px"><label for="irregularBoundary" data-ar="أطوال حدود الأرض الخارجية بالمتر (اختياري لحساب المحيط)" data-en="Outer boundary side lengths in metres (optional perimeter)">أطوال حدود الأرض الخارجية بالمتر (اختياري لحساب المحيط)</label><input id="irregularBoundary" class="ltr" placeholder="مثال: 12, 18, 14, 20, 16"></div>
+    <p class="muted" data-ar="للأرض غير المنتظمة قسّمها ميدانيًا إلى مثلثات لا تتداخل، وقِس قاعدة وارتفاعًا عموديًا لكل مثلث. مجموع المساحات يعطي المساحة التقريبية. أطوال الأضلاع وحدها لا تكفي دائمًا لحساب مساحة مضلع غير منتظم." data-en="Divide the parcel into non-overlapping triangles, measuring a base and perpendicular height for each. Sum triangle areas. Side lengths alone are not always enough to determine an irregular polygon's area.">للأرض غير المنتظمة قسّمها ميدانيًا إلى مثلثات لا تتداخل، وقِس قاعدة وارتفاعًا عموديًا لكل مثلث. مجموع المساحات يعطي المساحة التقريبية. أطوال الأضلاع وحدها لا تكفي دائمًا لحساب مساحة مضلع غير منتظم.</p>
+   </div>
+   <div class="rowbtn"><button class="primary" id="calcManualArea" data-ar="احسب المساحة والمحيط" data-en="Calculate area and perimeter">احسب المساحة والمحيط</button><button class="secondary" id="manualSample" data-ar="إعادة المثال" data-en="Reset example">إعادة المثال</button></div>
+   <div id="manualAreaResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2 data-ar="رسم توضيحي للأبعاد" data-en="Dimension sketch">رسم توضيحي للأبعاد</h2>
+   <p class="muted" data-ar="الرسم توضيحي وليس مخططًا مساحيًا معتمدًا." data-en="Illustrative sketch, not a certified survey plan.">الرسم توضيحي وليس مخططًا مساحيًا معتمدًا.</p>
+   <canvas id="manualAreaCanvas" class="plot" width="800" height="500" aria-label="Land dimension sketch"></canvas>
+   <div class="notice" data-ar="تنبيه: استخدم الأداة للحسابات الأولية فقط. للأراضي الرسمية، تحقق من القياسات ميدانيًا بواسطة مختص مساحة." data-en="Note: Use for preliminary calculations only. Verify official land measurements in the field with a qualified surveyor.">تنبيه: استخدم الأداة للحسابات الأولية فقط. للأراضي الرسمية، تحقق من القياسات ميدانيًا بواسطة مختص مساحة.</div>
   </article>
  </div>
 </section>
@@ -480,6 +514,53 @@ function openToolPage(page){const tab=document.querySelector('.tab[data-page="'+
 document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openToolPage(b.dataset.openPage)));
 window.addEventListener('load',()=>{const intro=$('introScreen');if(intro)setTimeout(()=>intro.classList.add('intro-hide'),1900)});
 $('langBtn').addEventListener('click',()=>setLanguage(language==='ar'?'en':'ar'));
+
+function manualValue(id, label, optional=false){
+ const el=$(id); const raw=el?el.value.trim():'';
+ if(optional && raw==='') return null;
+ const v=Number(raw);
+ if(raw===''||!Number.isFinite(v)||v<=0) throw new Error(`${label}: أدخل قيمة أكبر من صفر.`);
+ return v;
+}
+function updateManualShape(){
+ const shape=$('manualShape').value;
+ document.querySelectorAll('.manual-shape-fields').forEach(el=>{el.hidden=!el.dataset.shapes.split(/\s+/).includes(shape)});
+ drawManualShape(shape);
+}
+function drawManualShape(shape){
+ const c=$('manualAreaCanvas');if(!c)return;const ctx=c.getContext('2d');const w=c.width,h=c.height;ctx.clearRect(0,0,w,h);ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--panel').trim()||'#fff';ctx.fillRect(0,0,w,h);ctx.strokeStyle='#168b9b';ctx.fillStyle='rgba(22,139,155,.14)';ctx.lineWidth=5;ctx.lineJoin='round';
+ let pts;
+ if(shape==='rectangle')pts=[[150,120],[650,120],[650,370],[150,370]];
+ else if(shape==='square')pts=[[210,70],[590,70],[590,450],[210,450]];
+ else if(shape==='triangle')pts=[[140,400],[660,400],[420,90]];
+ else if(shape==='trapezoid')pts=[[120,390],[680,390],[560,120],[260,120]];
+ else if(shape==='circle'){ctx.beginPath();ctx.arc(400,250,155,0,Math.PI*2);ctx.fill();ctx.stroke();ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--ink').trim()||'#172033';ctx.font='bold 24px sans-serif';ctx.textAlign='center';ctx.fillText('نصف القطر r',400,255);return}
+ else {pts=[[130,310],[230,100],[420,145],[650,100],[700,310],[460,400],[250,390]];}
+ ctx.beginPath();pts.forEach((p,i)=>i?ctx.lineTo(p[0],p[1]):ctx.moveTo(p[0],p[1]));ctx.closePath();ctx.fill();ctx.stroke();ctx.fillStyle=getComputedStyle(document.body).getPropertyValue('--ink').trim()||'#172033';ctx.font='bold 21px sans-serif';ctx.textAlign='center';
+ if(shape==='rectangle'){ctx.fillText('الطول',400,100);ctx.save();ctx.translate(690,250);ctx.rotate(Math.PI/2);ctx.fillText('العرض',0,0);ctx.restore()}
+ else if(shape==='square')ctx.fillText('الضلع',400,55);
+ else if(shape==='triangle'){ctx.fillText('القاعدة',400,440);ctx.fillText('الارتفاع العمودي',440,250)}
+ else if(shape==='trapezoid'){ctx.fillText('القاعدة الكبرى',400,430);ctx.fillText('القاعدة الصغرى',410,95);ctx.fillText('الارتفاع',425,250)}
+ else ctx.fillText('قسّم الأرض إلى مثلثات غير متداخلة',400,465);
+}
+function calcManualArea(){
+ try{
+  const shape=$('manualShape').value;let area=0,perimeter=null,details='';
+  if(shape==='rectangle'){const l=manualValue('manualLength','الطول'),w=manualValue('manualWidth','العرض');area=l*w;perimeter=2*(l+w);details=`الطول ${num(l,3)} م × العرض ${num(w,3)} م`;}
+  else if(shape==='square'){const a=manualValue('manualSide','الضلع');area=a*a;perimeter=4*a;details=`الضلع ${num(a,3)} م`;}
+  else if(shape==='triangle'){const b=manualValue('triBase','القاعدة'),h=manualValue('triHeight','الارتفاع');area=b*h/2;const a=manualValue('triSideA','الضلع الأول',true),d=manualValue('triSideB','الضلع الثاني',true);if(a!==null&&d!==null)perimeter=b+a+d;details=`القاعدة ${num(b,3)} م × الارتفاع ${num(h,3)} م ÷ 2`;}
+  else if(shape==='trapezoid'){const a=manualValue('trapA','القاعدة الكبرى'),b=manualValue('trapB','القاعدة الصغرى'),h=manualValue('trapH','الارتفاع');if(b>a)throw new Error('القاعدة الصغرى يجب ألا تزيد على القاعدة الكبرى.');area=(a+b)*h/2;const s1=manualValue('trapSideA','الضلع الجانبي الأول',true),s2=manualValue('trapSideB','الضلع الجانبي الثاني',true);if(s1!==null&&s2!==null)perimeter=a+b+s1+s2;details=`( ${num(a,3)} + ${num(b,3)} ) × ${num(h,3)} ÷ 2`;}
+  else if(shape==='circle'){const r=manualValue('circleRadius','نصف القطر');area=Math.PI*r*r;perimeter=2*Math.PI*r;details=`π × ${num(r,3)}²`;}
+  else {const rows=$('irregularTriangles').value.trim().split(/\r?\n/).filter(Boolean);if(!rows.length)throw new Error('أدخل بيانات مثلث واحد على الأقل.');const parts=rows.map((line,i)=>{const v=line.split(/[,;\t]/).map(x=>x.trim());if(v.length<2||v[0]===''||v[1]==='')throw new Error(`بيانات المثلث رقم ${i+1} غير مكتملة.`);const b=Number(v[0]),h=Number(v[1]);if(!Number.isFinite(b)||!Number.isFinite(h)||b<=0||h<=0)throw new Error(`راجع القاعدة والارتفاع في المثلث رقم ${i+1}.`);return {b,h,area:b*h/2}});area=parts.reduce((s,x)=>s+x.area,0);const edgeText=$('irregularBoundary').value.trim();if(edgeText){const edges=edgeText.split(/[,;\s]+/).filter(Boolean).map(Number);if(edges.some(x=>!Number.isFinite(x)||x<=0))throw new Error('راجع أطوال الحدود الخارجية.');perimeter=edges.reduce((s,x)=>s+x,0);}details=`عدد المثلثات: ${parts.length} — `+parts.map((x,i)=>`م${i+1}: ${num(x.area,3)} م²`).join('، ');}
+  if(!Number.isFinite(area)||area<=0)throw new Error('تعذر حساب مساحة موجبة.');
+  const areaFeddan=area/4200, f=Math.floor(areaFeddan), q=Math.floor((areaFeddan-f)*24), sahm=Math.round((((areaFeddan-f)*24)-q)*24);
+  showResult('manualAreaResult',`<div class="metrics"><div class="metric"><span>المساحة</span><strong>${num(area,3)} م²</strong></div><div class="metric"><span>المساحة بالفدان</span><strong>${f} فدان ${q} قيراط ${sahm} سهم</strong></div>${perimeter===null?'':`<div class="metric"><span>المحيط</span><strong>${num(perimeter,3)} م</strong></div>`}</div><p><b>طريقة الحساب:</b> ${details}</p><small>نتيجة حسابية أولية؛ دقة النتيجة تعتمد على دقة القياسات المدخلة.</small>`);
+  drawManualShape(shape);
+ }catch(e){showResult('manualAreaResult',`<b>راجع البيانات:</b> ${escapeHtml(e.message||'تعذر الحساب.')}`)}
+}
+function resetManualArea(){ $('manualShape').value='rectangle';$('manualLength').value='40';$('manualWidth').value='25';$('manualSide').value='20';$('triBase').value='20';$('triHeight').value='12';$('triSideA').value='';$('triSideB').value='';$('trapA').value='30';$('trapB').value='18';$('trapH').value='12';$('trapSideA').value='';$('trapSideB').value='';$('circleRadius').value='10';$('irregularTriangles').value='20, 12\n15, 9\n18, 10';$('irregularBoundary').value='';updateManualShape();calcManualArea();}
+$('manualShape').addEventListener('change',updateManualShape);$('calcManualArea').addEventListener('click',calcManualArea);$('manualSample').addEventListener('click',resetManualArea);
+
 $('calcArea').addEventListener('click',refreshArea);$('sampleArea').addEventListener('click',()=>{$('pointsInput').value='P1, 0, 0\nP2, 40, 0\nP3, 40, 30\nP4, 0, 30';refreshArea()});
 $('unitSelect').addEventListener('change',refreshArea);$('areaUnit').addEventListener('change',refreshArea);$('exportPoints').addEventListener('click',exportPointCsv);
 $('calcSplit').addEventListener('click',doSplit);$('coordMode').addEventListener('change',updateCoordLabels);$('convertCoord').addEventListener('click',convertCoord);$('convertBatch').addEventListener('click',convertBatch);
@@ -502,7 +583,7 @@ $('calcTraverse').addEventListener('click',calcTraverse);$('exportTraverse').add
 $('calcLevelBook').addEventListener('click',calcLevelBook);$('exportLevelBook').addEventListener('click',()=>{if(!lastLevelBookRows.length)calcLevelBook();if(lastLevelBookRows.length)exportRows('level-book.csv',['Point','BS','IS','FS','HI','RL'],lastLevelBookRows.map(r=>[r.name,r.bs??'',r.isv??'',r.fs??'',r.hi,r.rl]))});
 $('calcRoadVolumes').addEventListener('click',calcRoadVolumes);$('exportRoadVolumes').addEventListener('click',()=>{if(!lastRoadRows.length)calcRoadVolumes();if(lastRoadRows.length)exportRows('road-volumes.csv',['From','To','Distance','CutVolume_m3','FillVolume_m3'],lastRoadRows.map(r=>[r.from,r.to,r.d,r.vc,r.vf]))});
 $('calcSlope').addEventListener('click',calcSlope);$('calcStations').addEventListener('click',calcStations);$('calcNdvi').addEventListener('click',calcNdvi);$('checkGisCoords').addEventListener('click',checkGis);$('listProjects').addEventListener('click',renderProjects);
-setLanguage(language);refreshArea();
+setLanguage(language);refreshArea();updateManualShape();calcManualArea();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
 </body>
