@@ -60,47 +60,29 @@ main{margin-top:20px}
 @media(max-width:480px){.dashboard{padding:15px;border-radius:16px}.tool-groups{grid-template-columns:1fr;gap:9px}.tool-shortcut{min-height:70px}.tool-icon{width:40px;height:40px;flex-basis:40px}.brand{align-items:flex-start}.subtitle{max-width:260px}.intro-mark{width:96px;height:96px;border-radius:27px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
 
-
-/* GeoPoint visual refresh */
-:root{--brand:#1764a0;--brand2:#104a78;--accent:#f0b429;--shadow:0 12px 34px #102a4314}
-header{background:radial-gradient(circle at 85% 0%,#2679ad 0,transparent 36%),linear-gradient(125deg,#0a2038,#104a78 58%,#087e83);padding:24px 16px 22px}
-.brand-logo{color:#fff;background:linear-gradient(145deg,#ffffff24,#ffffff08);border:1px solid #ffffff55;box-shadow:inset 0 1px #ffffff30}
-.brand-logo svg{width:34px;height:34px}
-main{margin-top:20px}
-.dashboard{margin:0 0 22px;background:linear-gradient(135deg,#fff,#f5faff);border:1px solid #d9e7f4;border-radius:20px;padding:20px;box-shadow:var(--shadow)}
-.dashboard-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:16px}
-.dashboard h2{font-size:clamp(20px,3vw,25px);margin:0 0 4px;color:#123b60}
-.dashboard-sub{margin:0;color:#62748a;font-size:14px}
-.status-pill{display:inline-flex;align-items:center;gap:7px;background:#e4f5f1;color:#11645c;border:1px solid #b9e6dd;border-radius:999px;padding:6px 10px;font-size:12px;font-weight:800}
-.status-pill:before{content:"";width:7px;height:7px;border-radius:50%;background:#12a594}
-.tool-groups{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
-.tool-shortcut{display:flex;align-items:center;gap:12px;text-align:right;width:100%;min-height:82px;padding:13px;background:#fff;border:1px solid #dfe8f1;border-radius:15px;color:#193650;box-shadow:0 4px 12px #17324b08;transition:transform .18s,border-color .18s,box-shadow .18s}
-.tool-shortcut:hover{transform:translateY(-3px);border-color:#8bbce0;box-shadow:0 10px 24px #17324b12;filter:none}
-.tool-icon{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:#eaf4fc;color:#1764a0}
-.tool-icon svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.tool-copy{display:flex;flex-direction:column;gap:3px;min-width:0}.tool-copy strong{font-size:14px}.tool-copy small{font-size:11px;font-weight:500;color:#718096;line-height:1.4}
-.tabs{padding:6px 2px 14px;scrollbar-width:thin}.tab{border:1px solid #d7e2ed;background:#eaf0f6}.tab.active{background:linear-gradient(135deg,#1764a0,#087e83);border-color:transparent;box-shadow:0 4px 12px #1764a028}
-.card{border-radius:18px;box-shadow:0 8px 24px #12263a0a;transition:box-shadow .2s}.card:hover{box-shadow:0 12px 30px #12263a12}
-.primary{background:linear-gradient(135deg,#1764a0,#087e83)}
-/* animated startup intro */
-.intro-screen{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:24px;background:radial-gradient(circle at 50% 35%,#174e73 0,#0a2038 52%,#061321 100%);color:#fff;transition:opacity .55s ease,visibility .55s ease}
-.intro-screen.intro-hide{opacity:0;visibility:hidden;pointer-events:none}
-.intro-inner{text-align:center;display:flex;flex-direction:column;align-items:center;gap:13px;animation:intro-rise .8s ease both}
-.intro-mark{width:112px;height:112px;display:grid;place-items:center;border:1px solid #ffffff55;border-radius:32px;background:linear-gradient(145deg,#ffffff20,#ffffff08);box-shadow:0 20px 65px #0004;position:relative;overflow:hidden}
-.intro-mark:after{content:"";position:absolute;inset:-60%;background:linear-gradient(110deg,transparent 40%,#ffffff30 50%,transparent 60%);transform:translateX(-70%);animation:shine 1.7s ease-in-out infinite}
-.intro-mark svg{width:72px;height:72px;position:relative;z-index:1;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.intro-title{font-size:clamp(34px,8vw,48px);font-weight:900;letter-spacing:.4px;margin:4px 0 0}.intro-caption{color:#cce4f6;font-size:14px;margin:0}.intro-line{width:150px;height:3px;border-radius:99px;background:#ffffff25;overflow:hidden;margin-top:14px}.intro-line span{display:block;height:100%;width:40%;background:#f0b429;border-radius:99px;animation:load-line 1.35s ease-in-out infinite alternate}
-@keyframes intro-rise{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}@keyframes shine{to{transform:translateX(70%)}}@keyframes load-line{from{transform:translateX(0)}to{transform:translateX(150px)}}
-@media(max-width:900px){.tool-groups{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.dashboard{padding:15px;border-radius:16px}.tool-groups{grid-template-columns:1fr;gap:9px}.tool-shortcut{min-height:70px}.tool-icon{width:40px;height:40px;flex-basis:40px}.brand{align-items:flex-start}.subtitle{max-width:260px}.intro-mark{width:96px;height:96px;border-radius:27px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
-
 </style>
 </head>
 <body>
 <div class="intro-screen" id="introScreen" aria-label="GeoPoint intro"><div class="intro-inner"><div class="intro-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54 31 8l25 46H8Z"/><path d="M19 37h27M25 25h15M31 15v39"/><circle cx="31" cy="37" r="4" fill="#f0b429" stroke="#f0b429"/></svg></div><div class="intro-title">GeoPoint</div><p class="intro-caption" data-ar="منصتك الذكية للمساحة والجيوماتكس" data-en="Your surveying and geomatics workspace">منصتك الذكية للمساحة والجيوماتكس</p><div class="intro-line"><span></span></div></div></div>
-
-<div class="intro-screen" id="introScreen" aria-label="GeoPoint intro"><div class="intro-inner"><div class="intro-mark"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M8 54 31 8l25 46H8Z"/><path d="M19 37h27M25 25h15M31 15v39"/><circle cx="31" cy="37" r="4" fill="#f0b429" stroke="#f0b429"/></svg></div><div class="intro-title">GeoPoint</div><p class="intro-caption" data-ar="منصتك الذكية للمساحة والجيوماتكس" data-en="Your surveying and geomatics workspace">منصتك الذكية للمساحة والجيوماتكس</p><div class="intro-line"><span></span></div></div></div>
+<script>
+/* Intro fail-safe: hide the splash even if another app script fails. */
+(function(){
+  function hideGeoPointIntro(){
+    var intro=document.getElementById('introScreen');
+    if(!intro) return;
+    intro.classList.add('intro-hide');
+    window.setTimeout(function(){ if(intro && intro.parentNode) intro.parentNode.removeChild(intro); },700);
+  }
+  window.setTimeout(hideGeoPointIntro,2200);
+  document.addEventListener('DOMContentLoaded',function(){
+    var intro=document.getElementById('introScreen');
+    if(intro){ intro.setAttribute('role','button'); intro.setAttribute('tabindex','0'); intro.setAttribute('aria-label','اضغط لتخطي المقدمة');
+      intro.addEventListener('click',hideGeoPointIntro);
+      intro.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hideGeoPointIntro();}});
+    }
+  },{once:true});
+})();
+</script>
 
 <header>
  <div class="head">
@@ -109,19 +91,6 @@ main{margin-top:20px}
  </div>
 </header>
 <main>
-<section class="dashboard" aria-label="لوحة الأدوات الرئيسية"><div class="dashboard-top"><div><h2 data-ar="كل أدواتك المساحية في مكان واحد" data-en="All your surveying tools in one place">كل أدواتك المساحية في مكان واحد</h2><p class="dashboard-sub" data-ar="اختار الأداة وابدأ الحساب مباشرة" data-en="Choose a tool and start calculating">اختار الأداة وابدأ الحساب مباشرة</p></div><span class="status-pill" data-ar="جاهز للعمل" data-en="Ready to use">جاهز للعمل</span></div><div class="tool-groups">
-<button class="tool-shortcut" data-open-page="area"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="m3 18 5-12 13 4-5 10z"/><path d="m8 6 8 14"/></svg></span><span class="tool-copy"><strong data-ar="مساحة الأرض" data-en="Land area">مساحة الأرض</strong><small data-ar="المساحة والمحيط" data-en="Area and perimeter">المساحة والمحيط</small></span></button>
-<button class="tool-shortcut" data-open-page="split"><span class="tool-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M9 4v16M15 4v16"/></svg></span><span class="tool-copy"><strong data-ar="تقسيم الأراضي" data-en="Parcel subdivision">تقسيم الأراضي</strong><small data-ar="تقسيمات متساوية" data-en="Equal-area parcels">تقسيمات متساوية</small></span></button>
-<button class="tool-shortcut" data-open-page="coords"><span class="tool-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 2v20M2 12h20M8 8l8 8"/></svg></span><span class="tool-copy"><strong data-ar="الإحداثيات" data-en="Coordinates">الإحداثيات</strong><small data-ar="تحويل وفحص النقاط" data-en="Convert and check points">تحويل وفحص النقاط</small></span></button>
-<button class="tool-shortcut" data-open-page="bearing"><span class="tool-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m14.5 9.5-2 5-3 1 2-5zM12 3v3M21 12h-3"/></svg></span><span class="tool-copy"><strong data-ar="المسافة والسمت" data-en="Distance & bearing">المسافة والسمت</strong><small data-ar="الحساب العكسي والطردي" data-en="Inverse and forward">الحساب العكسي والطردي</small></span></button>
-<button class="tool-shortcut" data-open-page="level"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M3 19h18M5 19V7h14v12M8 7V4h8v3M12 4v15"/></svg></span><span class="tool-copy"><strong data-ar="الميزانية" data-en="Leveling">الميزانية</strong><small data-ar="حساب المناسيب" data-en="Elevation calculations">حساب المناسيب</small></span></button>
-<button class="tool-shortcut" data-open-page="traverse"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="m4 18 5-12 6 8 5-7"/><circle cx="4" cy="18" r="1.5"/><circle cx="9" cy="6" r="1.5"/><circle cx="15" cy="14" r="1.5"/><circle cx="20" cy="7" r="1.5"/></svg></span><span class="tool-copy"><strong data-ar="الترافيرس" data-en="Traverse">الترافيرس</strong><small data-ar="الإقفال والتصحيح" data-en="Closure and adjustment">الإقفال والتصحيح</small></span></button>
-<button class="tool-shortcut" data-open-page="roads"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M8 3 4 21M16 3l4 18M12 4v3m0 3v3m0 3v3"/></svg></span><span class="tool-copy"><strong data-ar="الطرق والكميات" data-en="Roads & quantities">الطرق والكميات</strong><small data-ar="الحفر والردم والمحطات" data-en="Earthworks and stations">الحفر والردم والمحطات</small></span></button>
-<button class="tool-shortcut" data-open-page="gis"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3zM9 3v15m6-12v15"/></svg></span><span class="tool-copy"><strong data-ar="GIS والاستشعار" data-en="GIS & remote sensing">GIS والاستشعار</strong><small data-ar="مؤشرات الأقمار الصناعية" data-en="Satellite indices">مؤشرات الأقمار الصناعية</small></span></button>
-<button class="tool-shortcut" data-open-page="levelbook"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M5 3h14v18H5zM8 7h8M8 11h8M8 15h5"/></svg></span><span class="tool-copy"><strong data-ar="دفتر الميزانية" data-en="Level book">دفتر الميزانية</strong><small data-ar="قراءات وفحص الإقفال" data-en="Readings and closure check">قراءات وفحص الإقفال</small></span></button>
-<button class="tool-shortcut" data-open-page="projects"><span class="tool-icon"><svg viewBox="0 0 24 24"><path d="M3 7h7l2 2h9v11H3zM3 7V4h7l2 3"/></svg></span><span class="tool-copy"><strong data-ar="المشروعات والملفات" data-en="Projects & files">المشروعات والملفات</strong><small data-ar="حفظ واستيراد وتصدير" data-en="Save, import, export">حفظ واستيراد وتصدير</small></span></button>
-</div></section>
-
 <div class="notice" data-ar="نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية." data-en="Working prototype. Verify coordinate reference systems, units, and results before official surveying or property-boundary work.">نسخة أولية عملية. راجع نظام الإحداثيات والوحدات والنتائج قبل استخدامها في أعمال رسمية أو تحديد حدود ملكية.</div>
 <nav class="tabs" aria-label="الأدوات">
 <button class="tab active" data-page="area" data-ar="مساحة الأرض" data-en="Land area">مساحة الأرض</button>
@@ -481,9 +450,6 @@ document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{doc
 function openToolPage(page){const tab=document.querySelector('.tab[data-page="'+page+'"]');if(tab)tab.click();const main=document.querySelector('main');if(main&&window.matchMedia('(max-width: 800px)').matches)document.querySelector('#page-'+page)?.scrollIntoView({behavior:'smooth',block:'start'})}
 document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openToolPage(b.dataset.openPage)));
 window.addEventListener('load',()=>{const intro=$('introScreen');if(intro)setTimeout(()=>intro.classList.add('intro-hide'),1900)});
-function openToolPage(page){const tab=document.querySelector('.tab[data-page="'+page+'"]');if(tab)tab.click();const main=document.querySelector('main');if(main&&window.matchMedia('(max-width: 800px)').matches)document.querySelector('#page-'+page)?.scrollIntoView({behavior:'smooth',block:'start'})}
-document.querySelectorAll('[data-open-page]').forEach(b=>b.addEventListener('click',()=>openToolPage(b.dataset.openPage)));
-window.addEventListener('load',()=>{const intro=$('introScreen');if(intro)setTimeout(()=>intro.classList.add('intro-hide'),1900)});
 $('langBtn').addEventListener('click',()=>setLanguage(language==='ar'?'en':'ar'));
 $('calcArea').addEventListener('click',refreshArea);$('sampleArea').addEventListener('click',()=>{$('pointsInput').value='P1, 0, 0\nP2, 40, 0\nP3, 40, 30\nP4, 0, 30';refreshArea()});
 $('unitSelect').addEventListener('change',refreshArea);$('areaUnit').addEventListener('change',refreshArea);$('exportPoints').addEventListener('click',exportPointCsv);
@@ -492,7 +458,7 @@ $('exportBatch').addEventListener('click',()=>{if(!batchRows.length){convertBatc
 $('calcBearing').addEventListener('click',calcBearing);$('calcForward').addEventListener('click',calcForward);$('calcLevel').addEventListener('click',calcLevel);
 $('saveProject').addEventListener('click',saveProject);$('loadProject').addEventListener('click',loadProject);$('deleteProject').addEventListener('click',()=>{localStorage.removeItem('mihani-project');showResult('projectResult',t('تم حذف المشروع المحفوظ.','Saved project deleted.'))});
 $('importFile').addEventListener('click',()=>{const f=$('fileInput').files[0];if(!f){showResult('fileResult',t('اختر ملفًا أولًا.','Choose a file first.'));return}const r=new FileReader();r.onload=()=>{$('pointsInput').value=String(r.result).replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>!/^name\s*,\s*x\s*,\s*y/i.test(x.trim())).join('\n');if(refreshArea())showResult('fileResult',t('تم استيراد الملف.','File imported.'))};r.onerror=()=>showResult('fileResult',t('تعذر قراءة الملف.','Could not read file.'));r.readAsText(f)});
-$('exportJson').addEventListener('click',()=>{const d={app:'GeoPoint Survey Platform',version:'0.2.0',exported:new Date().toISOString(),current:{name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value},projects:dbAll()};download('mihani-backup-v0.2.json',JSON.stringify(d,null,2),'application/json')});
+$('exportJson').addEventListener('click',()=>{const d={app:'GeoPoint Survey Platform',version:'0.3.1',exported:new Date().toISOString(),current:{name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value},projects:dbAll()};download('mihani-backup-v0.2.json',JSON.stringify(d,null,2),'application/json')});
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installBtn').hidden=false});$('installBtn').addEventListener('click',async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;$('installBtn').hidden=true});
 
 $('calcTraverse').addEventListener('click',calcTraverse);$('exportTraverse').addEventListener('click',()=>{if(!lastTraverseRows.length)calcTraverse();if(lastTraverseRows.length)exportRows('traverse.csv',['Point','Distance','Azimuth','RawE','RawN','CorrectionE','CorrectionN','FinalE','FinalN'],lastTraverseRows.map(r=>[r.name,r.dist,r.az,r.rawX,r.rawY,r.corE,r.corN,r.x,r.y]))});
