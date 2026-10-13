@@ -1,7 +1,19 @@
-GeoPoint UI refresh v0.3
-- Renamed app branding to GeoPoint
-- Added animated startup intro overlay
-- Added responsive categorized shortcut dashboard for all existing tool pages
-- Existing tab navigation and calculator logic retained
-- Updated PWA manifest and SVG icon
-- Manual browser testing is still recommended after publishing to GitHub Pages.
+GeoPoint validation report - v0.3.2
+
+Automated checks completed:
+- All inline JavaScript blocks pass Node.js syntax validation.
+- Numeric-line parser preserves empty columns required by the leveling field book.
+- Removed duplicate legacy saveProject implementation.
+- Batch coordinate conversion clears stale results before each attempt and after errors.
+- Project deletion now updates the saved-project list and legacy current-project pointer.
+- Bearing calculation validates empty/invalid coordinates and identical points.
+- Slope ratio uses horizontal distance divided by absolute vertical difference.
+
+Recommended manual checks after publishing to GitHub Pages:
+1. Open the site and run each calculator with sample values.
+2. Try the leveling field-book sample; ensure blank BS/IS/FS cells remain in their columns.
+3. Save two projects, open one, delete one, and refresh the page to verify persistence.
+4. Run batch coordinate conversion successfully, then run it with an invalid line and verify export cannot use stale results.
+5. Verify PWA installation and service-worker behavior on HTTPS.
+
+Note: this is not a professional survey certification. Verify field results independently before using them for construction or legal boundary work.
