@@ -1,11 +1,13 @@
 {
   "name": "مِهني | أدوات مساحية",
   "short_name": "مِهني",
-  "lang": "ar",
-  "dir": "rtl",
+  "description": "أدوات المساحة والطرق وGIS والاستشعار عن بعد",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#f3f6fa",
   "theme_color": "#102a43",
-  "description": "أدوات مساحية لحساب المساحات وتقسيم الأراضي وتحويل الإحداثيات"
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
 }

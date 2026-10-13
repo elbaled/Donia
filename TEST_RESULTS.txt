@@ -1,0 +1,9 @@
+Mihani v0.2 basic regression tests — PASS
+1. Rectangle 40 m x 30 m: area 1200 m²; perimeter 140 m.
+2. Four-leg 100 m square traverse with azimuths 90, 0, 270, 180 degrees: closes to start within floating-point tolerance.
+3. HI leveling: known RL 100.00 m + BS 1.25 m = HI 101.25 m; FS 1.85 m gives RL 99.40 m.
+4. Average end-area volumes across stations 0, 20, 40 m: cut 580 m³; fill 210 m³.
+5. NDVI for Red=0.12 and NIR=0.48: 0.60000.
+6. JavaScript syntax check with Node.js: PASS.
+
+Scope: these are known-value calculation and syntax checks, not a complete field-survey validation or browser automation suite.

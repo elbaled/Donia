@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#102a43">
-<meta name="description" content="أدوات مساحية لحساب المساحات وتقسيم الأراضي وتحويل الإحداثيات">
+<meta name="description" content="مِهني: أدوات المساحة والترافيرس والميزانية والطرق وGIS والاستشعار عن بعد">
 <title>مِهني | أدوات مساحية</title>
 <link rel="manifest" href="./manifest.json">
 <style>
@@ -42,6 +42,10 @@ footer{max-width:1150px;margin:auto;padding:0 14px 28px;color:var(--muted);font-
 <button class="tab" data-page="coords" data-ar="تحويل الإحداثيات" data-en="Coordinate conversion">تحويل الإحداثيات</button>
 <button class="tab" data-page="bearing" data-ar="المسافة والسمت" data-en="Distance & bearing">المسافة والسمت</button>
 <button class="tab" data-page="level" data-ar="الميزانية" data-en="Leveling">الميزانية</button>
+<button class="tab" data-page="traverse" data-ar="الترافيرس" data-en="Traverse">الترافيرس</button>
+<button class="tab" data-page="levelbook" data-ar="دفتر الميزانية" data-en="Level book">دفتر الميزانية</button>
+<button class="tab" data-page="roads" data-ar="الطرق والكميات" data-en="Roads & earthworks">الطرق والكميات</button>
+<button class="tab" data-page="gis" data-ar="GIS والاستشعار" data-en="GIS & remote sensing">GIS والاستشعار</button>
 <button class="tab" data-page="projects" data-ar="المشاريع والبيانات" data-en="Projects & data">المشاريع والبيانات</button>
 </nav>
 
@@ -139,13 +143,82 @@ P4, 0, 30</textarea></div>
  </div>
 </section>
 
+
+<section id="page-traverse" class="page">
+ <div class="grid">
+  <article class="card full">
+   <h2>حساب الترافيرس وتصحيح الإغلاق — Traverse & Bowditch</h2>
+   <p class="muted">أدخل إحداثيات نقطة البداية، ثم كل ضلع في سطر: اسم النقطة التالية، المسافة بالمتر، السمت بالدرجات من الشمال مع عقارب الساعة. إذا كانت إحداثيات نقطة النهاية المعلومة متاحة، أدخلها لتطبيق تصحيح Bowditch. تأكد من أن السموت والمسافات صحيحة قبل اعتماد النتيجة.</p>
+   <div class="formgrid"><div class="field"><label>Start Easting / X</label><input id="trStartX" type="number" step="any" value="500000"></div><div class="field"><label>Start Northing / Y</label><input id="trStartY" type="number" step="any" value="3100000"></div><div class="field"><label>Known end Easting (optional)</label><input id="trEndX" type="number" step="any" placeholder="اختياري"></div><div class="field"><label>Known end Northing (optional)</label><input id="trEndY" type="number" step="any" placeholder="اختياري"></div></div>
+   <div class="field"><label>الأضلاع: اسم النقطة التالية، المسافة، السمت</label><textarea id="traverseInput" class="ltr">P2, 100, 90
+P3, 100, 0
+P4, 100, 270
+P1, 100, 180</textarea></div>
+   <div class="rowbtn"><button class="primary" id="calcTraverse">احسب الترافيرس وصحح Bowditch</button><button class="secondary" id="exportTraverse">تصدير جدول الترافيرس CSV</button></div><div id="traverseResult" class="result"></div><div id="traverseTable" class="tablewrap"></div>
+  </article>
+ </div>
+</section>
+<section id="page-levelbook" class="page">
+ <div class="grid">
+  <article class="card full">
+   <h2>دفتر ميزانية بطريقة HI مع فحص الإقفال</h2>
+   <p class="muted">كل سطر: اسم النقطة، BS، IS، FS. اترك الخانة غير المستخدمة فارغة. عند نقطة التحويل أدخل FS على النقطة القديمة في سطر، ثم BS على نفس نقطة التحويل في السطر التالي. أدخل منسوب نقطة النهاية المعلوم اختياريًا لحساب خطأ الإقفال.</p>
+   <div class="formgrid"><div class="field"><label>منسوب نقطة البداية RL (m)</label><input id="lbStartRL" type="number" step="any" value="100"></div><div class="field"><label>منسوب نقطة النهاية المعلوم (اختياري)</label><input id="lbKnownEnd" type="number" step="any" placeholder="اختياري"></div></div>
+   <div class="field"><label>النقاط: Point, BS, IS, FS</label><textarea id="levelBookInput" class="ltr">BM1, 1.25, ,
+P1, , 1.80,
+TP1, , , 2.10
+TP1, 1.15, ,
+P2, , 1.65,
+BM2, , , 1.75</textarea></div>
+   <div class="rowbtn"><button class="primary" id="calcLevelBook">احسب دفتر الميزانية</button><button class="secondary" id="exportLevelBook">تصدير دفتر الميزانية CSV</button></div><div id="levelBookResult" class="result"></div><div id="levelBookTable" class="tablewrap"></div>
+  </article>
+ </div>
+</section>
+<section id="page-roads" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2>حساب الحجوم بطريقة متوسط مساحتي النهايتين</h2>
+   <p class="muted">أدخل المحطات بالترتيب والمساحات بالمتر المربع. يحسب الحجم بين كل قطاعين = متوسط المساحتين × المسافة بين المحطات. القطع والردم محسوبان منفصلين.</p>
+   <div class="field"><label>Station, Cut area (m²), Fill area (m²)</label><textarea id="roadSections" class="ltr">0, 12, 3
+20, 18, 5
+40, 10, 8</textarea></div>
+   <div class="rowbtn"><button class="primary" id="calcRoadVolumes">احسب الحجوم</button><button class="secondary" id="exportRoadVolumes">تصدير CSV</button></div><div id="roadResult" class="result"></div><div id="roadTable" class="tablewrap"></div>
+  </article>
+  <article class="card">
+   <h2>حاسبات طرق سريعة</h2>
+   <div class="formgrid"><div class="field"><label>المسافة الأفقية (m)</label><input id="slopeH" type="number" step="any" value="100"></div><div class="field"><label>فرق المنسوب (m)</label><input id="slopeV" type="number" step="any" value="2.5"></div></div>
+   <div class="rowbtn"><button class="primary" id="calcSlope">احسب الميل</button></div><div id="slopeResult" class="result"></div>
+   <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+   <div class="formgrid"><div class="field"><label>المحطة الابتدائية</label><input id="stationStart" type="number" step="any" value="1000"></div><div class="field"><label>المحطة النهائية</label><input id="stationEnd" type="number" step="any" value="1250"></div><div class="field"><label>طول المحطة (m)</label><input id="stationInterval" type="number" step="any" value="20"></div></div>
+   <div class="rowbtn"><button class="secondary" id="calcStations">أنشئ المحطات</button></div><div id="stationResult" class="result"></div>
+  </article>
+ </div>
+</section>
+<section id="page-gis" class="page">
+ <div class="grid">
+  <article class="card">
+   <h2>حاسبة مؤشر NDVI للاستشعار عن بُعد</h2>
+   <p class="muted">أدخل قيمة انعكاس الحزمة الحمراء Red وNear Infrared NIR من بيانات معالجة صحيحة. لا تدخل DN خامًا إلا إذا كان ذلك مناسبًا للمنتج وبعد تطبيق المعايرة المطلوبة. NDVI = (NIR − Red) / (NIR + Red).</p>
+   <div class="formgrid"><div class="field"><label>Red reflectance</label><input id="ndviRed" type="number" step="any" value="0.12"></div><div class="field"><label>NIR reflectance</label><input id="ndviNir" type="number" step="any" value="0.48"></div></div>
+   <div class="rowbtn"><button class="primary" id="calcNdvi">احسب NDVI</button></div><div id="ndviResult" class="result"></div>
+  </article>
+  <article class="card">
+   <h2>تحقق سريع من بيانات GIS</h2>
+   <p class="muted">أداة تحقق مبدئية لنطاق الإحداثيات الجغرافية WGS84 وليست فحصًا كاملًا لملف GIS.</p>
+   <div class="formgrid"><div class="field"><label>Latitude (−90 إلى 90)</label><input id="gisLat" type="number" step="any" value="28.1099"></div><div class="field"><label>Longitude (−180 إلى 180)</label><input id="gisLon" type="number" step="any" value="30.7503"></div></div>
+   <div class="rowbtn"><button class="secondary" id="checkGisCoords">تحقق من الإحداثيات</button></div><div id="gisResult" class="result"></div>
+   <p class="muted">خطوة مستقبلية: عرض خرائط وطبقات GeoJSON، حسابات مكانية، DEM وكنتور، وتحليل صور الأقمار الصناعية. يلزم توفير بيانات المصدر ونظام الإحداثيات الصحيح.</p>
+  </article>
+ </div>
+</section>
+
 <section id="page-projects" class="page">
  <div class="grid">
   <article class="card">
-   <h2 data-ar="حفظ المشروع على هذا الجهاز" data-en="Save project on this device">حفظ المشروع على هذا الجهاز</h2>
-   <p class="muted" data-ar="يحفظ بيانات النقاط الحالية في متصفح هذا الجهاز فقط. امسح بيانات المتصفح بحذر." data-en="Saves the current point list in this browser on this device only. Be careful when clearing browser data.">يحفظ بيانات النقاط الحالية في متصفح هذا الجهاز فقط. امسح بيانات المتصفح بحذر.</p>
+   <h2 data-ar="قاعدة مشروعات محلية" data-en="Local project database">قاعدة مشروعات محلية</h2>
+   <p class="muted" data-ar="احفظ عدة مشروعات على هذا الجهاز داخل المتصفح، ثم صدّر نسخة احتياطية لنقلها أو حمايتها. هذه قاعدة محلية وليست مزامنة سحابية." data-en="Saves the current point list in this browser on this device only. Be careful when clearing browser data.">احفظ عدة مشروعات على هذا الجهاز داخل المتصفح، ثم صدّر نسخة احتياطية لنقلها أو حمايتها. هذه قاعدة محلية وليست مزامنة سحابية.</p>
    <div class="field"><label data-ar="اسم المشروع" data-en="Project name">اسم المشروع</label><input id="projectName" value="مشروع أرض 1"></div>
-   <div class="rowbtn"><button class="primary" id="saveProject" data-ar="حفظ المشروع" data-en="Save project">حفظ المشروع</button><button class="secondary" id="loadProject" data-ar="استرجاع المشروع" data-en="Load project">استرجاع المشروع</button><button class="danger" id="deleteProject" data-ar="حذف المحفوظ" data-en="Delete saved project">حذف المحفوظ</button></div><div id="projectResult" class="result"></div>
+   <div class="rowbtn"><button class="primary" id="saveProject" data-ar="حفظ المشروع" data-en="Save project">حفظ المشروع</button><button class="secondary" id="loadProject" data-ar="استرجاع المشروع" data-en="Load project">استرجاع المشروع</button><button class="danger" id="deleteProject" data-ar="حذف المحفوظ" data-en="Delete saved project">حذف المحفوظ</button><button class="secondary" id="listProjects">عرض المشروعات المحفوظة</button></div><div id="projectResult" class="result"></div><div id="projectsList" class="tablewrap"></div>
   </article>
   <article class="card">
    <h2 data-ar="استيراد / تصدير" data-en="Import / export">استيراد / تصدير</h2>
@@ -288,6 +361,35 @@ function calcLevel(){const rl=Number($('knownRL').value),bs=Number($('bs').value
 function saveProject(){const data={name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value,updated:new Date().toISOString()};localStorage.setItem('mihani-project',JSON.stringify(data));showResult('projectResult',t('تم حفظ المشروع على هذا الجهاز.','Project saved on this device.'))}
 function loadProject(){const raw=localStorage.getItem('mihani-project');if(!raw){showResult('projectResult',t('لا يوجد مشروع محفوظ.','No saved project found.'));return}try{const d=JSON.parse(raw);$('projectName').value=d.name||'';$('pointsInput').value=d.points||'';$('unitSelect').value=d.unit||'m';$('areaUnit').value=d.areaUnit||'m2';refreshArea();showResult('projectResult',t('تم استرجاع المشروع.','Project loaded.'))}catch(e){showResult('projectResult',t('تعذر قراءة المشروع المحفوظ.','Could not read saved project.'))}}
 function setLanguage(lang){language=lang;localStorage.setItem('mihani-language',lang);document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-ar][data-en]').forEach(el=>{el.textContent=el.dataset[lang]});$('langBtn').textContent=lang==='ar'?'English':'العربية';document.querySelectorAll('option[data-ar][data-en]').forEach(el=>el.textContent=el.dataset[lang]);refreshArea();if(splitCuts.length)renderCanvas($('splitCanvas'),currentPoints,splitCuts)}
+
+let lastTraverseRows=[], lastLevelBookRows=[], lastRoadRows=[];
+function parseNumericLines(text,minCols,label){const rows=[];const lines=text.split(/\r?\n/).map(x=>x.trim()).filter(Boolean);for(let i=0;i<lines.length;i++){const a=lines[i].split(/[\t,;]+/).map(x=>x.trim());if(a.length<minCols)throw new Error(`${label}: خط ${i+1} غير مكتمل.`);rows.push(a)}return rows}
+function calcTraverse(){try{
+ const sx=Number($('trStartX').value),sy=Number($('trStartY').value);if(!Number.isFinite(sx)||!Number.isFinite(sy))throw Error('أدخل إحداثيات بداية صحيحة.');
+ const input=parseNumericLines($('traverseInput').value,3,'الترافيرس');if(input.length<2)throw Error('أدخل ضلعين على الأقل.');
+ let x=sx,y=sy,totalL=0,sumDE=0,sumDN=0;const raw=[{name:'START',x,y,dist:0,az:0,de:0,dn:0}];
+ input.forEach((r,i)=>{const d=Number(r[1]),az=Number(r[2]);if(!Number.isFinite(d)||d<=0||!Number.isFinite(az))throw Error(`المسافة أو السمت غير صحيحين في السطر ${i+1}.`);const rad=az*Math.PI/180,de=d*Math.sin(rad),dn=d*Math.cos(rad);x+=de;y+=dn;totalL+=d;sumDE+=de;sumDN+=dn;raw.push({name:r[0]||`P${i+1}`,x,y,dist:d,az:((az%360)+360)%360,de,dn})});
+ const exText=$('trEndX').value.trim(),eyText=$('trEndY').value.trim();let adjusted=false,fx=null,fy=null,closure=null,rel='غير متاح';if(exText!==''||eyText!==''){if(exText===''||eyText==='')throw Error('أدخل إحداثيي النهاية معًا.');const ex=Number(exText),ey=Number(eyText);if(!Number.isFinite(ex)||!Number.isFinite(ey))throw Error('إحداثيات النهاية غير صحيحة.');fx=ex-x;fy=ey-y;closure=Math.hypot(fx,fy);rel=closure===0?'∞':`1 : ${Math.round(totalL/closure).toLocaleString('en-US')}`;adjusted=true}
+ let cx=sx,cy=sy;const rows=[{name:'START',x:sx,y:sy,rawX:sx,rawY:sy,dist:0,az:0,corE:0,corN:0}];input.forEach((r,i)=>{const a=raw[i+1],ce=adjusted?fx*a.dist/totalL:0,cn=adjusted?fy*a.dist/totalL:0;cx+=a.de+ce;cy+=a.dn+cn;rows.push({name:a.name,x:cx,y:cy,rawX:a.x,rawY:a.y,dist:a.dist,az:a.az,corE:ce,corN:cn})});lastTraverseRows=rows;
+ showResult('traverseResult',`<b>مجموع الأطوال:</b> ${num(totalL,4)} m<br>${adjusted?`<b>فرق الإغلاق E:</b> ${num(fx,4)} m &nbsp; <b>N:</b> ${num(fy,4)} m<br><b>خطأ الإغلاق الخطي:</b> ${num(closure,4)} m<br><b>نسبة الإغلاق التقريبية:</b> ${rel}<br>تم تطبيق Bowditch بتوزيع التصحيح بنسبة طول كل ضلع.`:'لم تدخل إحداثيات نهاية معلومة؛ لا يمكن حساب خطأ الإغلاق أو تصحيحه، وعُرضت الإحداثيات غير المصححة فقط.'}<br><small>تنبيه: صحّح السموت/الأطوال وتحقق من مواصفات الدقة قبل الاستخدام الميداني.</small>`);
+ $('traverseTable').innerHTML=`<table><thead><tr><th>Point</th><th>Distance</th><th>Azimuth</th><th>Raw E</th><th>Raw N</th><th>Correction E</th><th>Correction N</th><th>Final E</th><th>Final N</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${num(r.dist,4)}</td><td>${num(r.az,4)}</td><td>${num(r.rawX,4)}</td><td>${num(r.rawY,4)}</td><td>${num(r.corE,5)}</td><td>${num(r.corN,5)}</td><td>${num(r.x,4)}</td><td>${num(r.y,4)}</td></tr>`).join('')}</tbody></table>`;
+ }catch(e){showResult('traverseResult',escapeHtml(e.message));$('traverseTable').innerHTML=''}}
+function calcLevelBook(){try{const start=Number($('lbStartRL').value);if(!Number.isFinite(start))throw Error('منسوب البداية غير صحيح.');const input=parseNumericLines($('levelBookInput').value,4,'دفتر الميزانية');let hi=null,rl=start,sumBS=0,sumFS=0;const rows=[];for(let i=0;i<input.length;i++){const [name,bsS,isS,fsS]=input[i];const bs=bsS===''?null:Number(bsS),isv=isS===''?null:Number(isS),fs=fsS===''?null:Number(fsS);for(const v of [bs,isv,fs])if(v!==null&&!Number.isFinite(v))throw Error(`قراءة غير صحيحة في السطر ${i+1}.`);if(bs===null&&isv===null&&fs===null)throw Error(`لا توجد قراءة في السطر ${i+1}.`);if(bs!==null){hi=rl+bs;sumBS+=bs}if(hi===null)throw Error('يجب أن تبدأ أول قراءة بـ BS على نقطة معلومة.');let pointRL=rl,used=null;if(isv!==null){pointRL=hi-isv;used='IS'}if(fs!==null){pointRL=hi-fs;used='FS';sumFS+=fs}rows.push({name,bs,isv,fs,hi,rl:pointRL,used});rl=pointRL}
+ const endKnown=$('lbKnownEnd').value.trim();let closure=null;if(endKnown!==''){const v=Number(endKnown);if(!Number.isFinite(v))throw Error('منسوب النهاية المعلوم غير صحيح.');closure=rl-v}
+ lastLevelBookRows=rows;showResult('levelBookResult',`<b>ΣBS:</b> ${num(sumBS,4)} m &nbsp; <b>ΣFS:</b> ${num(sumFS,4)} m<br><b>ΣBS − ΣFS:</b> ${num(sumBS-sumFS,4)} m<br><b>فرق المنسوب المحسوب:</b> ${num(rl-start,4)} m<br><b>منسوب النهاية المحسوب:</b> ${num(rl,4)} m${closure===null?'':`<br><b>خطأ الإقفال (المحسوب − المعلوم):</b> ${num(closure,4)} m`}<br><small>يُفترض أن قراءات BS/FS مرتبة بشكل صحيح عند نقاط التحويل؛ راجع دفتر الحقل الأصلي.</small>`);
+ $('levelBookTable').innerHTML=`<table><thead><tr><th>Point</th><th>BS</th><th>IS</th><th>FS</th><th>HI</th><th>RL</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${escapeHtml(r.name)}</td><td>${r.bs===null?'—':num(r.bs,4)}</td><td>${r.isv===null?'—':num(r.isv,4)}</td><td>${r.fs===null?'—':num(r.fs,4)}</td><td>${num(r.hi,4)}</td><td>${num(r.rl,4)}</td></tr>`).join('')}</tbody></table>`;
+ }catch(e){showResult('levelBookResult',escapeHtml(e.message));$('levelBookTable').innerHTML=''}}
+function calcRoadVolumes(){try{const input=parseNumericLines($('roadSections').value,3,'قطاعات الطريق');if(input.length<2)throw Error('أدخل قطاعين على الأقل.');const data=input.map((r,i)=>{const station=Number(r[0]),cut=Number(r[1]),fill=Number(r[2]);if(![station,cut,fill].every(Number.isFinite)||cut<0||fill<0)throw Error(`بيانات القطاع ${i+1} غير صحيحة.`);return {station,cut,fill}});for(let i=1;i<data.length;i++)if(data[i].station<=data[i-1].station)throw Error('يجب أن تكون المحطات متزايدة.');let totalCut=0,totalFill=0;const rows=[];for(let i=1;i<data.length;i++){const a=data[i-1],b=data[i],d=b.station-a.station,vc=(a.cut+b.cut)/2*d,vf=(a.fill+b.fill)/2*d;totalCut+=vc;totalFill+=vf;rows.push({from:a.station,to:b.station,d,vc,vf})}lastRoadRows=rows;showResult('roadResult',`<b>إجمالي حجم القطع:</b> ${num(totalCut,3)} m³<br><b>إجمالي حجم الردم:</b> ${num(totalFill,3)} m³<br><b>الفرق الحسابي (قطع − ردم):</b> ${num(totalCut-totalFill,3)} m³`);$('roadTable').innerHTML=`<table><thead><tr><th>From</th><th>To</th><th>Distance</th><th>Cut volume m³</th><th>Fill volume m³</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${num(r.from,3)}</td><td>${num(r.to,3)}</td><td>${num(r.d,3)}</td><td>${num(r.vc,3)}</td><td>${num(r.vf,3)}</td></tr>`).join('')}</tbody></table>`}catch(e){showResult('roadResult',escapeHtml(e.message));$('roadTable').innerHTML=''}}
+function exportRows(filename,headers,rows){download(filename,[headers.join(','),...rows.map(r=>r.map(csvEscape).join(','))].join('\r\n'),'text/csv;charset=utf-8')}
+function dbAll(){try{return JSON.parse(localStorage.getItem('mihani-projects')||'[]')}catch{return []}}
+function saveProject(){const data={id:Date.now(),name:$('projectName').value.trim()||'مشروع بدون اسم',points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value,updated:new Date().toISOString()};const arr=dbAll();const old=arr.findIndex(x=>x.name===data.name);if(old>=0){if(!confirm('يوجد مشروع بنفس الاسم. هل تريد تحديثه؟'))return;data.id=arr[old].id;arr[old]=data}else arr.unshift(data);localStorage.setItem('mihani-projects',JSON.stringify(arr));localStorage.setItem('mihani-project',JSON.stringify(data));showResult('projectResult',`تم حفظ «${escapeHtml(data.name)}». عدد المشروعات: ${arr.length}`);renderProjects()}
+function renderProjects(){const arr=dbAll();$('projectsList').innerHTML=arr.length?`<table><thead><tr><th>اسم المشروع</th><th>آخر تحديث</th><th>إجراء</th></tr></thead><tbody>${arr.map(x=>`<tr><td>${escapeHtml(x.name)}</td><td>${escapeHtml(new Date(x.updated).toLocaleString())}</td><td><button class="smallbtn secondary" data-load-project="${x.id}">فتح</button> <button class="smallbtn danger" data-delete-project="${x.id}">حذف</button></td></tr>`).join('')}</tbody></table>`:'<p class="muted" style="padding:10px">لا توجد مشروعات محفوظة بعد.</p>';document.querySelectorAll('[data-load-project]').forEach(b=>b.onclick=()=>{const d=dbAll().find(x=>x.id===Number(b.dataset.loadProject));if(!d)return;$('projectName').value=d.name;$('pointsInput').value=d.points;$('unitSelect').value=d.unit||'m';$('areaUnit').value=d.areaUnit||'m2';refreshArea();showResult('projectResult',`تم فتح «${escapeHtml(d.name)}».`)});document.querySelectorAll('[data-delete-project]').forEach(b=>b.onclick=()=>{const arr=dbAll().filter(x=>x.id!==Number(b.dataset.deleteProject));localStorage.setItem('mihani-projects',JSON.stringify(arr));renderProjects()})}
+function loadProject(){const raw=localStorage.getItem('mihani-project');if(!raw){const arr=dbAll();if(arr.length){$('projectName').value=arr[0].name;$('pointsInput').value=arr[0].points;$('unitSelect').value=arr[0].unit||'m';$('areaUnit').value=arr[0].areaUnit||'m2';refreshArea();showResult('projectResult','تم فتح آخر مشروع محفوظ.');return}showResult('projectResult','لا توجد مشروعات محفوظة.');return}try{const d=JSON.parse(raw);$('projectName').value=d.name||'';$('pointsInput').value=d.points||'';$('unitSelect').value=d.unit||'m';$('areaUnit').value=d.areaUnit||'m2';refreshArea();showResult('projectResult','تم استرجاع المشروع.')}catch(e){showResult('projectResult','تعذر قراءة المشروع المحفوظ.')}}
+function calcSlope(){const h=Number($('slopeH').value),v=Number($('slopeV').value);if(!Number.isFinite(h)||!Number.isFinite(v)||h<=0){showResult('slopeResult','أدخل مسافة أفقية موجبة وقيمًا صحيحة.');return}showResult('slopeResult',`<b>الميل:</b> ${num(v/h*100,4)}%<br><b>النسبة:</b> 1 : ${v===0?'∞':num(Math.abs(h/v),4)}<br><b>زاوية الميل:</b> ${num(Math.atan2(v,h)*180/Math.PI,4)}°`)}
+function calcStations(){const a=Number($('stationStart').value),b=Number($('stationEnd').value),d=Number($('stationInterval').value);if(![a,b,d].every(Number.isFinite)||b<a||d<=0){showResult('stationResult','راجع قيم المحطات والفاصل.');return}const out=[];for(let x=a;x<=b+1e-8&&out.length<10001;x+=d)out.push(num(x,3));if(out.length>=10001){showResult('stationResult','عدد المحطات أكبر من الحد المسموح.');return}showResult('stationResult',`<b>عدد المحطات:</b> ${out.length}<textarea readonly class="ltr" style="margin-top:8px;min-height:120px">${out.join('\n')}</textarea><button class="secondary" id="downloadStations">تنزيل المحطات CSV</button>`);$('downloadStations').onclick=()=>exportRows('road-stations.csv',['Station'],out.map(x=>[x]))}
+function calcNdvi(){const r=Number($('ndviRed').value),n=Number($('ndviNir').value),den=n+r;if(!Number.isFinite(r)||!Number.isFinite(n)||den===0){showResult('ndviResult','أدخل قيم انعكاس صحيحة، ومجموع غير صفري.');return}const ndvi=(n-r)/den;let label=ndvi<0?'قد يدل على ماء أو أسطح غير نباتية (حسب السياق)':ndvi<0.2?'غطاء نباتي قليل أو سطح غير نباتي':ndvi<0.5?'غطاء نباتي متوسط':'غطاء نباتي كثيف نسبيًا';showResult('ndviResult',`<b>NDVI:</b> ${num(ndvi,5)}<br>${label}<br><small>التفسير تقريبي ويتأثر بالمستشعر والموسم والتربة والظلال والمعايرة.</small>`)}
+function checkGis(){const a=Number($('gisLat').value),b=Number($('gisLon').value);if(!Number.isFinite(a)||!Number.isFinite(b)||a< -90||a>90||b< -180||b>180){showResult('gisResult','الإحداثيات خارج نطاق WGS84 الجغرافي.');return}showResult('gisResult',`الإحداثيات ضمن النطاق العددي: Latitude ${num(a,6)}°, Longitude ${num(b,6)}°.<br><small>هذا لا يؤكد صحة الموقع أو نظام الإحداثيات في الملف.</small>`)}
+
 document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id==='page-'+b.dataset.page))}));
 $('langBtn').addEventListener('click',()=>setLanguage(language==='ar'?'en':'ar'));
 $('calcArea').addEventListener('click',refreshArea);$('sampleArea').addEventListener('click',()=>{$('pointsInput').value='P1, 0, 0\nP2, 40, 0\nP3, 40, 30\nP4, 0, 30';refreshArea()});
@@ -297,8 +399,13 @@ $('exportBatch').addEventListener('click',()=>{if(!batchRows.length){convertBatc
 $('calcBearing').addEventListener('click',calcBearing);$('calcForward').addEventListener('click',calcForward);$('calcLevel').addEventListener('click',calcLevel);
 $('saveProject').addEventListener('click',saveProject);$('loadProject').addEventListener('click',loadProject);$('deleteProject').addEventListener('click',()=>{localStorage.removeItem('mihani-project');showResult('projectResult',t('تم حذف المشروع المحفوظ.','Saved project deleted.'))});
 $('importFile').addEventListener('click',()=>{const f=$('fileInput').files[0];if(!f){showResult('fileResult',t('اختر ملفًا أولًا.','Choose a file first.'));return}const r=new FileReader();r.onload=()=>{$('pointsInput').value=String(r.result).replace(/^\uFEFF/,'').split(/\r?\n/).filter(x=>!/^name\s*,\s*x\s*,\s*y/i.test(x.trim())).join('\n');if(refreshArea())showResult('fileResult',t('تم استيراد الملف.','File imported.'))};r.onerror=()=>showResult('fileResult',t('تعذر قراءة الملف.','Could not read file.'));r.readAsText(f)});
-$('exportJson').addEventListener('click',()=>{const d={app:'Mihani Survey Tools',version:'0.1.0',name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value};download('mihani-backup.json',JSON.stringify(d,null,2),'application/json')});
+$('exportJson').addEventListener('click',()=>{const d={app:'Mihani Survey Tools',version:'0.2.0',exported:new Date().toISOString(),current:{name:$('projectName').value,points:$('pointsInput').value,unit:$('unitSelect').value,areaUnit:$('areaUnit').value},projects:dbAll()};download('mihani-backup-v0.2.json',JSON.stringify(d,null,2),'application/json')});
 window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredInstall=e;$('installBtn').hidden=false});$('installBtn').addEventListener('click',async()=>{if(!deferredInstall)return;deferredInstall.prompt();await deferredInstall.userChoice;deferredInstall=null;$('installBtn').hidden=true});
+
+$('calcTraverse').addEventListener('click',calcTraverse);$('exportTraverse').addEventListener('click',()=>{if(!lastTraverseRows.length)calcTraverse();if(lastTraverseRows.length)exportRows('traverse.csv',['Point','Distance','Azimuth','RawE','RawN','CorrectionE','CorrectionN','FinalE','FinalN'],lastTraverseRows.map(r=>[r.name,r.dist,r.az,r.rawX,r.rawY,r.corE,r.corN,r.x,r.y]))});
+$('calcLevelBook').addEventListener('click',calcLevelBook);$('exportLevelBook').addEventListener('click',()=>{if(!lastLevelBookRows.length)calcLevelBook();if(lastLevelBookRows.length)exportRows('level-book.csv',['Point','BS','IS','FS','HI','RL'],lastLevelBookRows.map(r=>[r.name,r.bs??'',r.isv??'',r.fs??'',r.hi,r.rl]))});
+$('calcRoadVolumes').addEventListener('click',calcRoadVolumes);$('exportRoadVolumes').addEventListener('click',()=>{if(!lastRoadRows.length)calcRoadVolumes();if(lastRoadRows.length)exportRows('road-volumes.csv',['From','To','Distance','CutVolume_m3','FillVolume_m3'],lastRoadRows.map(r=>[r.from,r.to,r.d,r.vc,r.vf]))});
+$('calcSlope').addEventListener('click',calcSlope);$('calcStations').addEventListener('click',calcStations);$('calcNdvi').addEventListener('click',calcNdvi);$('checkGisCoords').addEventListener('click',checkGis);$('listProjects').addEventListener('click',renderProjects);
 setLanguage(language);refreshArea();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./sw.js').catch(()=>{});
 </script>
