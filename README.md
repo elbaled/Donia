@@ -1,4 +1,4 @@
-# مِهني | أدوات مساحية
+# GeoPoint | أدوات مساحية
 
 نسخة الويب التجريبية 0.2.0، جاهزة للرفع إلى GitHub Pages.
 
@@ -10,7 +10,7 @@
 - `TEST_RESULTS.txt`: أمثلة اختبارات الحسابات الأولية وحدودها.
 
 ## نشر التطبيق باستخدام GitHub Pages من الهاتف أو الكمبيوتر
-1. أنشئ مستودعًا جديدًا (Repository) على GitHub، مثل `mihani-survey-tools`.
+1. أنشئ مستودعًا جديدًا (Repository) على GitHub، مثل `geopoint-survey-tools`.
 2. ارفع **محتويات هذا المجلد** إلى جذر المستودع، وليس ملف ZIP نفسه.
 3. افتح `Settings` ثم `Pages`.
 4. تحت `Build and deployment` اختر `Deploy from a branch`.

@@ -1,7 +1,7 @@
 {
-  "name": "مِهني | أدوات مساحية",
-  "short_name": "مِهني",
-  "description": "أدوات المساحة والطرق وGIS والاستشعار عن بعد",
+  "name": "GeoPoint | منصة المساحة والجيوماتكس",
+  "short_name": "GeoPoint",
+  "description": "أدوات المساحة والترافيرس والميزانية والطرق وGIS والاستشعار عن بعد",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,5 +9,12 @@
   "theme_color": "#102a43",
   "lang": "ar",
   "dir": "rtl",
-  "icons": [{"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
 }
