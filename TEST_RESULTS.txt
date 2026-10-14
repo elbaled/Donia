@@ -17,3 +17,5 @@ Recommended manual checks after publishing to GitHub Pages:
 5. Verify PWA installation and service-worker behavior on HTTPS.
 
 Note: this is not a professional survey certification. Verify field results independently before using them for construction or legal boundary work.
+
+Version 0.5.0 UI polish: HTML source updated; archive regenerated. Manual browser interaction tests are still required.
