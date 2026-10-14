@@ -1,21 +1,6 @@
-GeoPoint validation report - v0.3.2
-
-Automated checks completed:
-- All inline JavaScript blocks pass Node.js syntax validation.
-- Numeric-line parser preserves empty columns required by the leveling field book.
-- Removed duplicate legacy saveProject implementation.
-- Batch coordinate conversion clears stale results before each attempt and after errors.
-- Project deletion now updates the saved-project list and legacy current-project pointer.
-- Bearing calculation validates empty/invalid coordinates and identical points.
-- Slope ratio uses horizontal distance divided by absolute vertical difference.
-
-Recommended manual checks after publishing to GitHub Pages:
-1. Open the site and run each calculator with sample values.
-2. Try the leveling field-book sample; ensure blank BS/IS/FS cells remain in their columns.
-3. Save two projects, open one, delete one, and refresh the page to verify persistence.
-4. Run batch coordinate conversion successfully, then run it with an invalid line and verify export cannot use stale results.
-5. Verify PWA installation and service-worker behavior on HTTPS.
-
-Note: this is not a professional survey certification. Verify field results independently before using them for construction or legal boundary work.
-
-Version 0.5.0 UI polish: HTML source updated; archive regenerated. Manual browser interaction tests are still required.
+GeoPoint Professional v0.6.0 — checks performed
+- ZIP contents generated.
+- JavaScript syntax checked separately before delivery.
+- Added Qirat/feddan/sahm to square-metre conversion and area addition/subtraction UI.
+- Manual area and existing surveying tools retained from v0.5.0.
+- Browser/device integration and field accuracy still require user testing after deployment.
