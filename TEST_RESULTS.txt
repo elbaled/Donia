@@ -1,6 +1,5 @@
-GeoPoint Professional v0.6.0 — checks performed
-- ZIP contents generated.
-- JavaScript syntax checked separately before delivery.
-- Added Qirat/feddan/sahm to square-metre conversion and area addition/subtraction UI.
-- Manual area and existing surveying tools retained from v0.5.0.
-- Browser/device integration and field accuracy still require user testing after deployment.
+GeoPoint Four Tools Edition — build checks
+- HTML file generated.
+- JavaScript syntax checked separately with Node.js.
+- Manual browser interaction not run in this build environment.
+- Verify calculations and project-specific units before field use.
